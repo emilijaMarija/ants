@@ -17,6 +17,12 @@ zoom = Vector2(3, 3)
 
 [node name="Sugars" type="Node2D" parent="."]
 
+[node name="Sugar5" parent="Sugars" groups=["sugars"] instance=ExtResource("2_aq5n8")]
+position = Vector2(-94, -118)
+
+[node name="Sugar4" parent="Sugars" groups=["sugars"] instance=ExtResource("2_aq5n8")]
+position = Vector2(9, -70)
+
 [node name="Sugar" parent="Sugars" groups=["sugars"] instance=ExtResource("2_aq5n8")]
 position = Vector2(-103, -48)
 
@@ -25,9 +31,3 @@ position = Vector2(-129, 17)
 
 [node name="Sugar3" parent="Sugars" groups=["sugars"] instance=ExtResource("2_aq5n8")]
 position = Vector2(112, -22)
-
-[node name="Sugar" parent="Sugars/Sugar3" groups=["sugars"] instance=ExtResource("2_aq5n8")]
-position = Vector2(-103, -48)
-
-[node name="Sugar" parent="Sugars/Sugar3/Sugar" groups=["sugars"] instance=ExtResource("2_aq5n8")]
-position = Vector2(-103, -48)
