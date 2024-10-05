@@ -1,0 +1,51 @@
+[gd_scene load_steps=10 format=3 uid="uid://7d6bwmfcr17c"]
+
+[ext_resource type="Script" path="res://anteater/anteater.gd" id="1_5buyl"]
+[ext_resource type="Texture2D" uid="uid://d3i2uv1aotuc5" path="res://assets/anteater_walk/anteater_walking1.png" id="1_o3uy1"]
+[ext_resource type="Texture2D" uid="uid://d1dkfq0ownb" path="res://assets/anteater_walk/anteater_walking2.png" id="2_g6p0p"]
+[ext_resource type="Texture2D" uid="uid://cpyu2ok2g5024" path="res://assets/anteater_walk/anteater_walking3.png" id="3_vvqks"]
+[ext_resource type="Texture2D" uid="uid://bdct3lsoxf18v" path="res://assets/anteater_walk/anteater_walking4.png" id="4_3f852"]
+[ext_resource type="Texture2D" uid="uid://bhfp2k4g5wgg4" path="res://assets/anteater_walk/anteater_walking5.png" id="5_38gwj"]
+[ext_resource type="Texture2D" uid="uid://svqeck6g7n4a" path="res://assets/anteater_walk/anteater_walking6.png" id="6_wtluh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2je6i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_o3uy1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_g6p0p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vvqks")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3f852")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_38gwj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_wtluh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y8a68"]
+radius = 20.67
+height = 328.67
+
+[node name="Anteater" type="CharacterBody2D"]
+script = ExtResource("1_5buyl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_2je6i")
+frame_progress = 0.380455
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = -0.000188623
+shape = SubResource("CapsuleShape2D_y8a68")

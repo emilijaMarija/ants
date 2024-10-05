@@ -1,12 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3oi38i7201mq"]
+[gd_scene load_steps=8 format=3 uid="uid://d3oi38i7201mq"]
 
 [ext_resource type="Script" path="res://game_scene.gd" id="1_7dbf0"]
 [ext_resource type="PackedScene" uid="uid://b2526ml0jylg3" path="res://ant/ant.tscn" id="1_o4o3v"]
 [ext_resource type="PackedScene" uid="uid://d180hlq7afle8" path="res://sugar/sugar.tscn" id="2_aq5n8"]
 [ext_resource type="TileSet" uid="uid://cboac0mp26dc0" path="res://assets/map/new_tile_set.tres" id="4_w86bm"]
+[ext_resource type="PackedScene" uid="uid://7d6bwmfcr17c" path="res://anteater/anteater.tscn" id="5_lh8r2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ecujj"]
 size = Vector2(800, 1968)
+
+[sub_resource type="Curve2D" id="Curve2D_17l14"]
+_data = {
+"points": PackedVector2Array(-166.777, 169.051, 166.777, -169.051, -356, 92, -109.163, 78.0818, 109.163, -78.0818, -240, -266, -108.405, -66.7106, 108.405, 66.7106, 225, -307, 76.5656, -109.921, -76.5656, 109.921, 344, 147, 125.841, -18.9519, -125.841, 18.9519, 170, 476, 81.8721, 109.921, -81.8721, -109.921, -121, 403, 104.614, 56.0976, -104.614, -56.0976, -393, 452, 19.71, -47.7588, -19.71, 47.7588, -475, 287, 0, 0, 0, 0, -356, 92)
+}
+point_count = 9
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_7dbf0")
@@ -16,6 +23,9 @@ sugar_scene = ExtResource("2_aq5n8")
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray(0, 0, 252, 255, 252, 255, 0, 0, 0, 0, 0, 0, 0, 0, 252, 255, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 tile_set = ExtResource("4_w86bm")
+
+[node name="Anteater" parent="." instance=ExtResource("5_lh8r2")]
+path = NodePath("../Path2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
@@ -40,3 +50,6 @@ shape = SubResource("RectangleShape2D_ecujj")
 [node name="Sugar spawn timer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_17l14")
