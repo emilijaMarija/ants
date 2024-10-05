@@ -11,25 +11,26 @@ position = Vector2(45, -4)
 zoom = Vector2(3, 3)
 
 [node name="RigidBody2D2" parent="." instance=ExtResource("1_o4o3v")]
-position = Vector2(45, -4)
+position = Vector2(85, -19)
 
 [node name="RigidBody2D3" parent="." instance=ExtResource("1_o4o3v")]
-position = Vector2(45, -4)
+position = Vector2(2, -50)
 
 [node name="RigidBody2D4" parent="." instance=ExtResource("1_o4o3v")]
-position = Vector2(45, -4)
+position = Vector2(87, 32)
 
 [node name="RigidBody2D5" parent="." instance=ExtResource("1_o4o3v")]
-position = Vector2(45, -4)
+position = Vector2(-24, 18)
 
 [node name="RigidBody2D6" parent="." instance=ExtResource("1_o4o3v")]
-position = Vector2(45, -4)
+position = Vector2(25, 42)
 
 [node name="RigidBody2D7" parent="." instance=ExtResource("1_o4o3v")]
-position = Vector2(45, -4)
+position = Vector2(41, -41)
 
 [node name="RigidBody2D8" parent="." instance=ExtResource("1_o4o3v")]
-position = Vector2(45, -4)
+position = Vector2(-36, -32)
 
 [node name="RigidBody2D9" parent="." instance=ExtResource("1_o4o3v")]
-position = Vector2(45, -4)
+position = Vector2(-64, 45)
+rotation = -1.0686

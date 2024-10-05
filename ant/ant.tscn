@@ -34,17 +34,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="RigidBody2D" type="RigidBody2D"]
-mass = 0.01
-gravity_scale = 0.0
-linear_damp = 20.0
-angular_damp = 21.565
+[node name="CharacterBody2D" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_jut72")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.57079
 shape = SubResource("RectangleShape2D_t6tgk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.57079
 sprite_frames = SubResource("SpriteFrames_kk5iw")
-frame_progress = 0.211903
+frame_progress = 0.720969
 speed_scale = 2.0
