@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2526ml0jylg3"]
+
+[ext_resource type="Script" path="res://ant/ant.gd" id="1_jut72"]
+[ext_resource type="Texture2D" uid="uid://d1m8bimdn4pbj" path="res://ant/ant.png" id="2_sorfr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t6tgk"]
+size = Vector2(22.45, 32.25)
+
+[node name="RigidBody2D" type="RigidBody2D"]
+mass = 0.01
+gravity_scale = 0.0
+linear_damp = 5.0
+script = ExtResource("1_jut72")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_sorfr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_t6tgk")
