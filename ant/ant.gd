@@ -22,6 +22,5 @@ func _process(delta: float) -> void:
 func move_towards_mouse(mouse_position: Vector2) -> void:
 	var direction = (mouse_position - global_position).normalized()
 	velocity = direction * movement_speed
-	print(velocity)
 	move_and_slide()
 	
