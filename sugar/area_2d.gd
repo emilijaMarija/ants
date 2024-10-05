@@ -9,7 +9,6 @@ func _ready():
 	pass
 
 func _on_body_entered(body):
-	print("Picked up sugar")
 	if body is CharacterBody2D:
 		sugar_picked_up.emit()
 		queue_free()

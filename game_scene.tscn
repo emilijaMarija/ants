@@ -1,12 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3oi38i7201mq"]
+[gd_scene load_steps=6 format=3 uid="uid://d3oi38i7201mq"]
 
 [ext_resource type="Script" path="res://game_scene.gd" id="1_7dbf0"]
 [ext_resource type="PackedScene" uid="uid://b2526ml0jylg3" path="res://ant/ant.tscn" id="1_o4o3v"]
 [ext_resource type="PackedScene" uid="uid://d180hlq7afle8" path="res://sugar/sugar.tscn" id="2_aq5n8"]
+[ext_resource type="TileSet" uid="uid://cboac0mp26dc0" path="res://assets/map/new_tile_set.tres" id="4_w86bm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ecujj"]
+size = Vector2(800, 1968)
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_7dbf0")
 ant_scene = ExtResource("1_o4o3v")
+sugar_scene = ExtResource("2_aq5n8")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray(0, 0, 252, 255, 252, 255, 0, 0, 0, 0, 0, 0, 0, 0, 252, 255, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+tile_set = ExtResource("4_w86bm")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
@@ -18,17 +27,16 @@ position_smoothing_enabled = true
 
 [node name="Sugars" type="Node2D" parent="."]
 
-[node name="Sugar5" parent="Sugars" groups=["sugars"] instance=ExtResource("2_aq5n8")]
-position = Vector2(-94, -118)
-
-[node name="Sugar4" parent="Sugars" groups=["sugars"] instance=ExtResource("2_aq5n8")]
-position = Vector2(9, -70)
-
 [node name="Sugar" parent="Sugars" groups=["sugars"] instance=ExtResource("2_aq5n8")]
-position = Vector2(-103, -48)
+position = Vector2(111, -29)
 
-[node name="Sugar2" parent="Sugars" groups=["sugars"] instance=ExtResource("2_aq5n8")]
-position = Vector2(-129, 17)
+[node name="Sugar spawn area" type="Area2D" parent="."]
+visible = false
 
-[node name="Sugar3" parent="Sugars" groups=["sugars"] instance=ExtResource("2_aq5n8")]
-position = Vector2(112, -22)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sugar spawn area"]
+position = Vector2(-51, 452)
+shape = SubResource("RectangleShape2D_ecujj")
+
+[node name="Sugar spawn timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
