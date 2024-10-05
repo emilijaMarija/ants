@@ -3,9 +3,11 @@ extends RigidBody2D
 const movement_speed: float = 15.0
 const rotation_speed: float = 10.0
 
+@onready var _animated_sprite = $AnimatedSprite2D
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#add_constant_central_force(Vector2(5.0, 0.0))
+	_animated_sprite.play("default")
 	pass # Replace with function body.
 
 
