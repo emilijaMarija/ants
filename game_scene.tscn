@@ -28,12 +28,13 @@ tile_set = ExtResource("4_w86bm")
 path = NodePath("../Path2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 
 [node name="Ants" type="Node" parent="."]
 
 [node name="Ant" parent="Ants" groups=["ants"] instance=ExtResource("1_o4o3v")]
+position = Vector2(396, -254)
 
 [node name="Sugars" type="Node2D" parent="."]
 
