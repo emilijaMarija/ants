@@ -9,7 +9,7 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t6tgk"]
 custom_solver_bias = 0.01
-size = Vector2(22.45, 32.25)
+size = Vector2(12, 32.25)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kk5iw"]
 animations = [{
