@@ -4,12 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://d1m8bimdn4pbj" path="res://ant/ant.png" id="2_sorfr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t6tgk"]
+custom_solver_bias = 0.01
 size = Vector2(22.45, 32.25)
 
 [node name="RigidBody2D" type="RigidBody2D"]
 mass = 0.01
 gravity_scale = 0.0
-linear_damp = 5.0
+linear_damp = 20.0
+angular_damp = 21.565
 script = ExtResource("1_jut72")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

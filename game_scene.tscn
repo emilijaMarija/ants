@@ -3,11 +3,33 @@
 [ext_resource type="PackedScene" uid="uid://b2526ml0jylg3" path="res://ant/ant.tscn" id="1_o4o3v"]
 
 [node name="Root" type="Node2D"]
-position = Vector2(55, -9)
 
 [node name="RigidBody2D" parent="." instance=ExtResource("1_o4o3v")]
-
-[node name="RigidBody2D2" parent="." instance=ExtResource("1_o4o3v")]
-position = Vector2(-53, 18)
+position = Vector2(45, -4)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="RigidBody2D2" parent="." instance=ExtResource("1_o4o3v")]
+position = Vector2(45, -4)
+
+[node name="RigidBody2D3" parent="." instance=ExtResource("1_o4o3v")]
+position = Vector2(45, -4)
+
+[node name="RigidBody2D4" parent="." instance=ExtResource("1_o4o3v")]
+position = Vector2(45, -4)
+
+[node name="RigidBody2D5" parent="." instance=ExtResource("1_o4o3v")]
+position = Vector2(45, -4)
+
+[node name="RigidBody2D6" parent="." instance=ExtResource("1_o4o3v")]
+position = Vector2(45, -4)
+
+[node name="RigidBody2D7" parent="." instance=ExtResource("1_o4o3v")]
+position = Vector2(45, -4)
+
+[node name="RigidBody2D8" parent="." instance=ExtResource("1_o4o3v")]
+position = Vector2(45, -4)
+
+[node name="RigidBody2D9" parent="." instance=ExtResource("1_o4o3v")]
+position = Vector2(45, -4)
