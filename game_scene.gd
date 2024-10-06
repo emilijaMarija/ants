@@ -56,3 +56,5 @@ func _process(delta: float) -> void:
 	if ant_count > 0:
 		avg_pos /= ant_count
 	_cam.position = avg_pos * 0.8 + get_global_mouse_position() * 0.2
+	if ant_count == 0:
+		get_tree().quit()

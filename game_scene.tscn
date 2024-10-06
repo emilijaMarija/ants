@@ -21,14 +21,14 @@ ant_scene = ExtResource("1_o4o3v")
 sugar_scene = ExtResource("2_aq5n8")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray(0, 0, 252, 255, 252, 255, 0, 0, 0, 0, 0, 0, 0, 0, 252, 255, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+tile_map_data = PackedByteArray(0, 0, 252, 255, 252, 255, 1, 0, 0, 0, 0, 0, 0, 0, 252, 255, 63, 0, 1, 0, 0, 0, 0, 0, 0, 0)
 tile_set = ExtResource("4_w86bm")
 
 [node name="Anteater" parent="." instance=ExtResource("5_lh8r2")]
 path = NodePath("../Path2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 
 [node name="Ants" type="Node" parent="."]

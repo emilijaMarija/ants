@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://7d6bwmfcr17c"]
+[gd_scene load_steps=12 format=3 uid="uid://7d6bwmfcr17c"]
 
 [ext_resource type="Script" path="res://anteater/anteater.gd" id="1_5buyl"]
 [ext_resource type="Texture2D" uid="uid://d3i2uv1aotuc5" path="res://assets/anteater_walk/anteater_walking1.png" id="1_o3uy1"]
@@ -42,6 +42,10 @@ height = 328.67
 radius = 328.12
 height = 656.24
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_idxru"]
+radius = 38.45
+height = 130.23
+
 [node name="Anteater" type="CharacterBody2D"]
 script = ExtResource("1_5buyl")
 
@@ -59,5 +63,15 @@ shape = SubResource("CapsuleShape2D_y8a68")
 [node name="Sniff collision radius" type="CollisionShape2D" parent="Sniff area"]
 shape = SubResource("CapsuleShape2D_ck0db")
 
+[node name="Suck area" type="Area2D" parent="."]
+
+[node name="Suck area radius" type="CollisionShape2D" parent="Suck area"]
+position = Vector2(0, -204)
+shape = SubResource("CapsuleShape2D_idxru")
+
+[node name="Mouth" type="Node2D" parent="."]
+position = Vector2(0, -176)
+
 [connection signal="body_entered" from="Sniff area" to="." method="_on_sniff_area_body_entered"]
 [connection signal="body_exited" from="Sniff area" to="." method="_on_sniff_area_body_exited"]
+[connection signal="body_entered" from="Suck area" to="." method="_on_suck_area_body_entered"]
