@@ -2,11 +2,7 @@
 
 importer="wav"
 type="AudioStreamWAV"
-<<<<<<< HEAD
-uid="uid://dg1udas3to8ti"
-=======
-uid="uid://bfcmxs2vbdcsv"
->>>>>>> 84fd0f1 (Add cloud grass)
+uid="uid://dp8dd24xr5ekg"
 path="res://.godot/imported/surprise_song.wav-118e7e3cd9af4fe99bd451c90206ed91.sample"
 
 [deps]

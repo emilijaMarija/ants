@@ -2,11 +2,7 @@
 
 importer="wav"
 type="AudioStreamWAV"
-<<<<<<< HEAD
-uid="uid://b7o4bt3rqtdoc"
-=======
-uid="uid://dg6356ckus4ct"
->>>>>>> 84fd0f1 (Add cloud grass)
+uid="uid://8ubq4q475exq"
 path="res://.godot/imported/ant_walk.wav-df7bc449592d678728512aa78cae13bd.sample"
 
 [deps]

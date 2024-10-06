@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b61xsbmknkvd6" path="res://assets/hill_ants/hill4.png" id="5_4c6r5"]
 [ext_resource type="Texture2D" uid="uid://jyky5dnv2ca3" path="res://assets/hill_ants/hill5.png" id="6_bhych"]
 [ext_resource type="Texture2D" uid="uid://dx6omrl1tpo08" path="res://assets/hill_ants/hill6.png" id="7_qmpyd"]
-[ext_resource type="AudioStream" uid="uid://dhk3cr722x2n4" path="res://assets/sounds/score_increase.wav" id="9_kcdr4"]
+[ext_resource type="AudioStream" uid="uid://diguj6rj8112v" path="res://assets/sounds/score_increase.wav" id="9_kcdr4"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4l8k6"]
 animations = [{

@@ -2,11 +2,7 @@
 
 importer="wav"
 type="AudioStreamWAV"
-<<<<<<< HEAD
-uid="uid://dhk3cr722x2n4"
-=======
-uid="uid://p3hnd523cin6"
->>>>>>> 84fd0f1 (Add cloud grass)
+uid="uid://diguj6rj8112v"
 path="res://.godot/imported/score_increase.wav-4c6ae9458b52ddf2570755e181107549.sample"
 
 [deps]
