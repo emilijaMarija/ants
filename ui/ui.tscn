@@ -1,6 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://cultwn2a7j772"]
+[gd_scene load_steps=6 format=3 uid="uid://cultwn2a7j772"]
 
+[ext_resource type="Texture2D" uid="uid://clvjhlr0j8gli" path="res://assets/UI/board_leaf.png" id="1_o5toh"]
+[ext_resource type="FontFile" uid="uid://cw71ymtxw0vr1" path="res://ui/PixelifySans-Regular.ttf" id="1_rtcxu"]
 [ext_resource type="Script" path="res://ui/score.gd" id="1_wsofg"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m014h"]
+texture = ExtResource("1_o5toh")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="Theme" id="Theme_up4a5"]
+default_font = ExtResource("1_rtcxu")
+Label/font_sizes/font_size = 32
+Label/styles/normal = SubResource("StyleBoxTexture_m014h")
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -21,6 +37,7 @@ anchor_bottom = 1.0
 offset_left = -61.0
 grow_horizontal = 0
 grow_vertical = 2
+theme = SubResource("Theme_up4a5")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
