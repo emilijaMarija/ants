@@ -46,17 +46,15 @@ func multiply_ants(count: int) -> void:
 		_ants_parent.add_child(new_ant)
 
 func _on_pumpkin_picked_up(pumpkin: Node2D, ant: Node2D) -> void:
-	print("should multiply")
 	multiply_ants(5)
 
 func _on_apple_picked_up(apple: Node2D, ant: Node2D) -> void:
 	multiply_ants(3)
 	
 func _on_sugar_picked_up(sugar: Node2D, apple: Node2D) -> void:
+	multiply_ants(1)
 	if state == STATE_FIRST_SUGAR:
 		change_state(STATE_MENU)
-	else:
-		multiply_ants(1)
 
 func begin_pre_start() -> void:
 	_initial_ant.follow_mouse = false
@@ -65,10 +63,15 @@ func begin_first_sugar() -> void:
 	_initial_ant.follow_mouse = true
 
 func begin_menu() -> void:
+	await get_tree().create_timer(1.0).timeout
 	_menu.visible = true
+	await get_tree().create_timer(3.0).timeout
+	_menu.get_node("Splash").visible = false
+	_menu.get_node("Info").visible = true
 
 func begin_game() -> void:
 	_scoreboard.visible = true
+	_menu.visibile = false
 	correct_zoom()
 	_sugar_spawn_timer.connect("timeout", spawn_sugar)
 	events.ant_eaten.connect(on_ant_eaten)
@@ -77,30 +80,35 @@ func begin_game() -> void:
 	for i in 25:
 		spawn_sugar()
 		_spawn_apple()
-	for sugar in get_tree().get_nodes_in_group("sugars"):
-		sugar.connect("sugar_picked_up", _on_sugar_picked_up)
 		
 func process_game(delta: float) -> void:
 	var avg_pos = Vector2(0, 0)
 	var ant_count = _ants_parent.get_child_count()
 	for i in range(ant_count):
-		avg_pos += _ants_parent.get_child(i).position
+		avg_pos += _ants_parent.get_child(i).global_position
 	if ant_count > 0:
 		avg_pos /= ant_count
-	_cam.position = avg_pos * 0.8 + get_global_mouse_position() * 0.2
+	_cam.global_position = avg_pos * 0.8 + get_global_mouse_position() * 0.2
+	
 	if ant_count == 0:
 		get_tree().quit()
 		
-func _unhandled_key_input(event):
-	if event.is_pressed() and state == STATE_PRE_START:
+		
+func any_input() -> void:
+	if state == STATE_PRE_START:
 		change_state(STATE_FIRST_SUGAR)
+	elif state == STATE_MENU:
+		change_state(STATE_GAMEPLAY)
+	
+func _unhandled_key_input(event):
+	if event.is_pressed():
+		any_input()
+	
 		
 func _input(event: InputEvent) -> void:
-	if state == STATE_PRE_START and event is InputEventMouseButton:
-		change_state(STATE_FIRST_SUGAR)
+	if event is InputEventMouseButton:
+		any_input()
 
-func process_menu(delta: float) -> void:
-	pass
 
 func _ready() -> void:
 	_sugar_spawn_timer.connect("timeout", spawn_sugar)
@@ -153,5 +161,3 @@ func on_ant_eaten(body: Node2D) -> void:
 func _process(delta: float) -> void:
 	if state == STATE_GAMEPLAY:
 		process_game(delta)
-	elif state == STATE_MENU:
-		process_menu(delta)

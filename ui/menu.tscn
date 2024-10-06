@@ -1,9 +1,59 @@
-[gd_scene format=3 uid="uid://denyf71crspjq"]
+[gd_scene load_steps=2 format=3 uid="uid://denyf71crspjq"]
+
+[ext_resource type="Texture2D" uid="uid://bhrxb2rcfcw4k" path="res://assets/UI/title.png" id="1_s365m"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
-[node name="Control" type="Control" parent="."]
+[node name="Splash" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Splash"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="Splash/CenterContainer"]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Splash/CenterContainer/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_s365m")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Info" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Info"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="Info/CenterContainer"]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Info/CenterContainer/BoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "bdf df fgjdf jns dkjg nsdjkgn dkjsgn dskjg ndsfjkg sd"
