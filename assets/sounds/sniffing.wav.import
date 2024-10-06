@@ -2,7 +2,11 @@
 
 importer="wav"
 type="AudioStreamWAV"
+<<<<<<< HEAD
 uid="uid://dcyyp268qtsy7"
+=======
+uid="uid://c4tlmt0w7orf1"
+>>>>>>> 84fd0f1 (Add cloud grass)
 path="res://.godot/imported/sniffing.wav-49d90691999f9199634c1cd081802fc3.sample"
 
 [deps]
