@@ -18,7 +18,6 @@ func correct_zoom() -> void:
 	var max_ants_zoom = 30.0
 	var x = clamp(ant_count, 0, max_ants_zoom)
 	_cam.zoom = Vector2(1, 1) * (2.0 - (2.0 / max_ants_zoom) * x)
-	print(_cam.zoom)
 
 func generate_sugar_position() -> Vector2:
 	var extents = _sugar_spawn_area.get_node("CollisionShape2D").shape.extents
