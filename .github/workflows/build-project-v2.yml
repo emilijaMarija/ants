@@ -22,7 +22,7 @@ jobs:
     name: Web Export
     runs-on: ubuntu-latest
     container:
-      image: barichello/godot-ci:3.3.3
+      image: barichello/godot-ci:4.3
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -37,10 +37,11 @@ jobs:
           mkdir -v -p build/web
           godot -v --export "HTML5" ./build/web/index.html
       - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4.4
         with:
           name: web
           path: build/web
+      # Installing rsync is needed in order to deploy to GitHub Pages. Without it, the build will fail.
       - name: Install rsync 📚
         run: |
           apt-get update && apt-get install -y rsync
