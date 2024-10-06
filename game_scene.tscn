@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://d3oi38i7201mq"]
+[gd_scene load_steps=24 format=4 uid="uid://d3oi38i7201mq"]
 
 [ext_resource type="Script" path="res://game_scene.gd" id="1_7dbf0"]
 [ext_resource type="PackedScene" uid="uid://b2526ml0jylg3" path="res://ant/ant.tscn" id="1_o4o3v"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://scu1wgy833i4" path="res://assets/background/wall_top.png" id="10_61i78"]
 [ext_resource type="Texture2D" uid="uid://blatfs6r3s6hy" path="res://assets/background/wall_bottom.png" id="11_s8jj1"]
 [ext_resource type="PackedScene" uid="uid://c5rgj5wj8mmnm" path="res://pumpkin/pumpkin.tscn" id="12_6cu0g"]
+[ext_resource type="AudioStream" uid="uid://b7o4bt3rqtdoc" path="res://assets/sounds/ant_walk.wav" id="14_o2u50"]
 
 [sub_resource type="Curve2D" id="Curve2D_17l14"]
 _data = {
@@ -88,6 +89,7 @@ curve = SubResource("Curve2D_17l14")
 visible = false
 
 [node name="Menu" parent="." instance=ExtResource("8_5q6rt")]
+visible = false
 
 [node name="Wall" type="Sprite2D" parent="."]
 position = Vector2(603.73, -60)
@@ -153,5 +155,8 @@ position = Vector2(1044, -1310)
 position = Vector2(901, -1389)
 rotation = -2.6337
 scale = Vector2(1.5, 1.5)
+
+[node name="SoundAntMultiply" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_o2u50")
 
 [connection signal="timeout" from="Apple spawn timer" to="." method="_spawn_apple"]

@@ -3,6 +3,8 @@ extends CharacterBody2D
 @export_group("Ant eater options")
 @export var path: NodePath
 
+@onready var _sound_lick: AudioStreamPlayer = $LickSound
+@onready var _sound_sniff: AudioStreamPlayer = $SniffSound
 @onready var _anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var _sniff_area: Area2D = $"Sniff area"
 @onready var _mouth: Node2D = $"Mouth"
@@ -42,6 +44,7 @@ func _process(delta: float) -> void:
 			if target == body:
 				target = null
 			events.ant_eaten.emit(body)
+			_sound_lick.play()
 			continue
 		if body is CharacterBody2D:
 			body.velocity = dir * suck_speed * delta
@@ -59,6 +62,10 @@ func patrol(delta: float) -> void:
 	rotation = velocity.angle() + deg_to_rad(90)
 	
 func chase(delta: float) -> void:
+	if not is_instance_valid(target):
+		target = null
+		state = STATE_PATROLLING
+		return
 	velocity = (target.position - position).normalized() * move_speed
 	rotation = velocity.angle() + deg_to_rad(90)
 
@@ -79,6 +86,7 @@ func _on_sniff_area_body_entered(body: Node2D) -> void:
 		target = body
 		state = STATE_CHASING
 		_anim.play("walk")
+		_sound_sniff.play()
 
 
 func _on_sniff_area_body_exited(body: Node2D) -> void:

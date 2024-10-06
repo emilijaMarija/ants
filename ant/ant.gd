@@ -4,6 +4,7 @@ const movement_speed: float = 150.0
 const rotation_speed: float = 10.0
 
 var follow_mouse = true
+var primary = false
 
 @onready var _animated_sprite = $AnimatedSprite2D
 

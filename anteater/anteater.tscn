@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://7d6bwmfcr17c"]
+[gd_scene load_steps=22 format=3 uid="uid://7d6bwmfcr17c"]
 
 [ext_resource type="Script" path="res://anteater/anteater.gd" id="1_5buyl"]
 [ext_resource type="Texture2D" uid="uid://ux4vrivp6ygd" path="res://assets/anteater_walk/anteater_walking1.png" id="1_o3uy1"]
@@ -15,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://dsxoheqhahgii" path="res://assets/anteating/anteating6.png" id="7_i1wff"]
 [ext_resource type="Texture2D" uid="uid://cgbvbviwud88v" path="res://assets/anteating/anteating7.png" id="8_iv4xi"]
 [ext_resource type="Texture2D" uid="uid://d8o8j1atn3g0" path="res://assets/anteating/anteating8.png" id="9_v5yts"]
+[ext_resource type="AudioStream" uid="uid://dcyyp268qtsy7" path="res://assets/sounds/sniffing.wav" id="16_nsijy"]
+[ext_resource type="AudioStream" uid="uid://do0uf364t2fsx" path="res://assets/sounds/jazz_lick.wav" id="17_pg2x0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2je6i"]
 animations = [{
@@ -115,6 +117,12 @@ one_shot = true
 
 [node name="Suck cooldown" type="Timer" parent="."]
 one_shot = true
+
+[node name="SniffSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_nsijy")
+
+[node name="LickSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_pg2x0")
 
 [connection signal="body_entered" from="Sniff area" to="." method="_on_sniff_area_body_entered"]
 [connection signal="body_exited" from="Sniff area" to="." method="_on_sniff_area_body_exited"]

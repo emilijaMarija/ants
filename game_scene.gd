@@ -12,6 +12,7 @@ extends Node2D
 @onready var _scoreboard = $Scoreboard
 @onready var _initial_ant = $Ants/Ant
 @onready var _menu = $Menu
+@onready var _sound_ant_multiply = $SoundAntMultiply
 
 @onready var _sugar_spawn_timer = $"Sugar spawn timer"
 
@@ -40,13 +41,14 @@ func change_state(state: int) -> void:
 	
 
 func multiply_ants(count: int) -> void:
+	_sound_ant_multiply.play()
 	var ant_count = _ants_parent.get_child_count()
 	correct_zoom()
 	for i in range(max(1, count)):
 		var new_ant = ant_scene.instantiate()
-		new_ant.position = _ants_parent.get_child(i).position
+		new_ant.position = _ants_parent.get_child(0).position
 		new_ant.add_to_group("ants")
-		_ants_parent.add_child(new_ant)
+		_ants_parent.call_deferred("add_child", new_ant)
 
 func _on_pumpkin_picked_up(pumpkin: Node2D, ant: Node2D) -> void:
 	multiply_ants(5)
@@ -81,9 +83,6 @@ func begin_game() -> void:
 	_menu.visible = false
 	correct_zoom()
 	_sugar_spawn_timer.connect("timeout", spawn_sugar)
-	events.ant_eaten.connect(on_ant_eaten)
-	events.apple_eaten.connect(_on_apple_picked_up)
-	events.pumpkin_eaten.connect(_on_pumpkin_picked_up)
 	for i in 25:
 		spawn_sugar()
 		_spawn_apple()
@@ -116,14 +115,19 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		any_input()
 
+func _on_ant_scored():
+	correct_zoom()
 
 func _ready() -> void:
 	_menu.get_node("Splash").modulate.a = 0
 	_menu.get_node("Info").modulate.a = 0
+	_initial_ant.primary = true
 	_sugar_spawn_timer.connect("timeout", spawn_sugar)
 	events.ant_eaten.connect(on_ant_eaten)
 	events.apple_eaten.connect(_on_apple_picked_up)
 	events.sugar_eaten.connect(_on_sugar_picked_up)
+	events.pumpkin_eaten.connect(_on_pumpkin_picked_up)
+	events.ant_scored.connect(_on_ant_scored)
 	change_state(STATE_PRE_START)
 
 func correct_zoom() -> void:
@@ -153,7 +157,6 @@ func spawn_sugar() -> void:
 	instance.position = generate_sugar_position()
 	instance.add_to_group("sugars")
 	_sugars_parent.add_child(instance)
-	instance.connect("sugar_picked_up", _on_sugar_picked_up)
 	
 func _spawn_apple() -> void:
 	if get_tree().get_nodes_in_group("apples").size() >= max_apples:
