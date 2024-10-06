@@ -12,7 +12,8 @@ extends Node2D
 
 @onready var _sugar_spawn_timer = $"Sugar spawn timer"
 
-const max_sugars = 20
+const max_sugars = 25
+const max_apples = 25
 
 func multiply_ants(count: int) -> void:
 	var ant_count = _ants_parent.get_child_count()
@@ -34,7 +35,7 @@ func _ready() -> void:
 	_sugar_spawn_timer.connect("timeout", spawn_sugar)
 	events.ant_eaten.connect(on_ant_eaten)
 	events.apple_eaten.connect(_on_apple_picked_up)
-	for i in 10:
+	for i in 25:
 		spawn_sugar()
 		_spawn_apple()
 	for sugar in get_tree().get_nodes_in_group("sugars"):
@@ -43,16 +44,17 @@ func _ready() -> void:
 func correct_zoom() -> void:
 	var ant_count = _ants_parent.get_child_count()
 	_cam.zoom = Vector2(1, 1) * max(pow(0.98, ant_count) * 2, 0.6)
+	#_cam.zoom = Vector2(1, 1) * 0.4
 
 func generate_sugar_position() -> Vector2:
 	var random_x = randf_range(32, 1000)
-	var random_y = randf_range(32, -2000)
+	var random_y = randf_range(-1080, 1080)
 	
 	return Vector2(random_x, random_y)
 	
 
 func generate_apple_position() -> Vector2:
-	var random_x = randf_range(1150, 3200)
+	var random_x = randf_range(1200, 3200)
 	var random_y = randf_range(-1000, 1000)
 	
 	return Vector2(random_x, random_y)
@@ -67,7 +69,7 @@ func spawn_sugar() -> void:
 	instance.connect("sugar_picked_up", _on_sugar_picked_up)
 	
 func _spawn_apple() -> void:
-	if get_tree().get_nodes_in_group("apples").size() >= 25:
+	if get_tree().get_nodes_in_group("apples").size() >= max_apples:
 		return
 	var instance = apple_scene.instantiate()
 	instance.position = generate_apple_position()

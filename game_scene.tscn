@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://d3oi38i7201mq"]
+[gd_scene load_steps=21 format=4 uid="uid://d3oi38i7201mq"]
 
 [ext_resource type="Script" path="res://game_scene.gd" id="1_7dbf0"]
 [ext_resource type="PackedScene" uid="uid://b2526ml0jylg3" path="res://ant/ant.tscn" id="1_o4o3v"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://cultwn2a7j772" path="res://ui/ui.tscn" id="6_inxoj"]
 [ext_resource type="Texture2D" uid="uid://cpw8y7smb486s" path="res://assets/background/wall.png" id="7_w513u"]
 [ext_resource type="PackedScene" uid="uid://dla07s4l0l71f" path="res://ant-nest/nest.tscn" id="8_o2gpr"]
+[ext_resource type="Texture2D" uid="uid://scu1wgy833i4" path="res://assets/background/wall_top.png" id="10_61i78"]
+[ext_resource type="Texture2D" uid="uid://blatfs6r3s6hy" path="res://assets/background/wall_bottom.png" id="11_s8jj1"]
 
 [sub_resource type="Curve2D" id="Curve2D_17l14"]
 _data = {
@@ -31,6 +33,15 @@ size = Vector2(1080, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0k862"]
 size = Vector2(20, 2160)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w4n4e"]
+size = Vector2(5000, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yigce"]
+size = Vector2(20, 4000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrhuy"]
+size = Vector2(4000, 20)
+
 [node name="Root" type="Node2D"]
 script = ExtResource("1_7dbf0")
 ant_scene = ExtResource("1_o4o3v")
@@ -38,7 +49,7 @@ sugar_scene = ExtResource("2_aq5n8")
 apple_scene = ExtResource("4_p16ac")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAABAP//AQAAAAAAAAABAAAAAQAAAAAAAAACAAAAAQAAAAAAAAACAP//AQAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAABAP//AQAAAAAAAAABAAAAAQAAAAAAAAACAAAAAQAAAAAAAAACAP//AQAAAAAAAAAAAAEAAwAAAAAAAAD//wEABAAAAAAAAAD//wAABQAAAAAAAAD/////BQAAAAAAAAABAAEAAQAAAAAAAAACAAEAAQAAAAAAAAADAAEAAQAAAAAAAAADAAAAAQAAAAAAAAADAP//AQAAAAAAAAADAP7/AQAAAAAAAAACAP7/AQAAAAAAAAABAP7/AQAAAAAAAAAAAP7/AQAAAAAAAAD///7/AQAAAAAAAAD///3/AQAAAAAAAAAAAP3/AQAAAAAAAAABAP3/AQAAAAAAAAACAP3/AQAAAAAAAAADAP3/AQAAAAAAAAA=")
 tile_set = ExtResource("4_s0e5j")
 
 [node name="Anteater" parent="." instance=ExtResource("5_lh8r2")]
@@ -53,7 +64,7 @@ position_smoothing_enabled = true
 [node name="Ants" type="Node" parent="."]
 
 [node name="Ant" parent="Ants" groups=["ants"] instance=ExtResource("1_o4o3v")]
-position = Vector2(1748, 258)
+position = Vector2(184, 883)
 
 [node name="Sugars" type="Node2D" parent="."]
 
@@ -101,11 +112,31 @@ shape = SubResource("RectangleShape2D_8yh72")
 position = Vector2(-10.21, 0)
 shape = SubResource("RectangleShape2D_0k862")
 
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Walls/W1"]
+position = Vector2(3600, -1080)
+shape = SubResource("RectangleShape2D_w4n4e")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Walls/W1"]
+position = Vector2(4000, 0)
+shape = SubResource("RectangleShape2D_yigce")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Walls/W1"]
+position = Vector2(3200, 1000)
+shape = SubResource("RectangleShape2D_lrhuy")
+
 [node name="Nest" parent="." instance=ExtResource("8_o2gpr")]
 position = Vector2(2684, -545)
 
 [node name="Apple spawn timer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
+
+[node name="WallTop" type="Sprite2D" parent="."]
+position = Vector2(-538, -664)
+texture = ExtResource("10_61i78")
+
+[node name="WallBottom" type="Sprite2D" parent="."]
+position = Vector2(668, 1623)
+texture = ExtResource("11_s8jj1")
 
 [connection signal="timeout" from="Apple spawn timer" to="." method="_spawn_apple"]
