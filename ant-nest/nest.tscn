@@ -1,0 +1,58 @@
+[gd_scene load_steps=11 format=3 uid="uid://dla07s4l0l71f"]
+
+[ext_resource type="Script" path="res://ant-nest/nest.gd" id="1_slhmf"]
+[ext_resource type="Texture2D" uid="uid://dt7qlvunvniiq" path="res://assets/hill.png" id="1_vvnh3"]
+[ext_resource type="Texture2D" uid="uid://bbm1c4uvsnxxw" path="res://assets/hill_ants/hill1.png" id="2_edqj3"]
+[ext_resource type="Texture2D" uid="uid://btmdq4laqo887" path="res://assets/hill_ants/hill2.png" id="3_rya30"]
+[ext_resource type="Texture2D" uid="uid://dpgnqpqyqjthh" path="res://assets/hill_ants/hill3.png" id="4_2ts4f"]
+[ext_resource type="Texture2D" uid="uid://b61xsbmknkvd6" path="res://assets/hill_ants/hill4.png" id="5_4c6r5"]
+[ext_resource type="Texture2D" uid="uid://jyky5dnv2ca3" path="res://assets/hill_ants/hill5.png" id="6_bhych"]
+[ext_resource type="Texture2D" uid="uid://dx6omrl1tpo08" path="res://assets/hill_ants/hill6.png" id="7_qmpyd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4l8k6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vvnh3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_edqj3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rya30")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2ts4f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4c6r5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_bhych")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_qmpyd")
+}],
+"loop": true,
+"name": &"levelup",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ck4xm"]
+radius = 52.51
+
+[node name="Nest" type="Node2D"]
+script = ExtResource("1_slhmf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4l8k6")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ck4xm")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d3oi38i7201mq"]
+[gd_scene load_steps=15 format=4 uid="uid://d3oi38i7201mq"]
 
 [ext_resource type="Script" path="res://game_scene.gd" id="1_7dbf0"]
 [ext_resource type="PackedScene" uid="uid://b2526ml0jylg3" path="res://ant/ant.tscn" id="1_o4o3v"]
@@ -7,12 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://7d6bwmfcr17c" path="res://anteater/anteater.tscn" id="5_lh8r2"]
 [ext_resource type="PackedScene" uid="uid://cultwn2a7j772" path="res://ui/ui.tscn" id="6_inxoj"]
 [ext_resource type="Texture2D" uid="uid://cpw8y7smb486s" path="res://assets/background/wall.png" id="7_w513u"]
+[ext_resource type="PackedScene" uid="uid://dla07s4l0l71f" path="res://ant-nest/nest.tscn" id="8_o2gpr"]
 
 [sub_resource type="Curve2D" id="Curve2D_17l14"]
 _data = {
-"points": PackedVector2Array(-166.777, 169.051, 166.777, -169.051, -356, 92, -109.163, 78.0818, 109.163, -78.0818, -240, -266, -108.405, -66.7106, 108.405, 66.7106, 225, -307, 76.5656, -109.921, -76.5656, 109.921, 344, 147, 125.841, -18.9519, -125.841, 18.9519, 170, 476, 81.8721, 109.921, -81.8721, -109.921, -121, 403, 104.614, 56.0976, -104.614, -56.0976, -393, 452, 19.71, -47.7588, -19.71, 47.7588, -475, 287, 0, 0, 0, 0, -356, 92)
+"points": PackedVector2Array(-166.777, 169.051, 166.777, -169.051, -400, 53, -109.163, 78.0818, 109.163, -78.0818, -240, -266, 0, 0, 0, 0, 9, -331, -108.405, -66.7106, 108.405, 66.7106, 224, -295, 76.5656, -109.921, -76.5656, 109.921, 344, 147, 125.841, -18.9519, -125.841, 18.9519, 170, 476, 81.8721, 109.921, -81.8721, -109.921, -121, 403, 104.614, 56.0976, -104.614, -56.0976, -393, 452, 19.71, -47.7588, -19.71, 47.7588, -475, 287, 0, 0, 0, 0, -356, 92)
 }
-point_count = 9
+point_count = 10
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2tkth"]
 size = Vector2(1080, 10)
@@ -35,11 +36,11 @@ ant_scene = ExtResource("1_o4o3v")
 sugar_scene = ExtResource("2_aq5n8")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray(0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+tile_map_data = PackedByteArray("AAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAABAP//AQAAAAAAAAABAAAAAQAAAAAAAAACAAAAAQAAAAAAAAACAP//AQAAAAAAAAA=")
 tile_set = ExtResource("4_s0e5j")
 
 [node name="Anteater" parent="." instance=ExtResource("5_lh8r2")]
-position = Vector2(354, 332)
+position = Vector2(2323, -539)
 path = NodePath("../Path2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -50,7 +51,7 @@ position_smoothing_enabled = true
 [node name="Ants" type="Node" parent="."]
 
 [node name="Ant" parent="Ants" groups=["ants"] instance=ExtResource("1_o4o3v")]
-position = Vector2(832, -344)
+position = Vector2(233, 803)
 
 [node name="Sugars" type="Node2D" parent="."]
 
@@ -62,13 +63,14 @@ wait_time = 3.0
 autostart = true
 
 [node name="Path2D" type="Path2D" parent="."]
-position = Vector2(607, 496)
+position = Vector2(2700, -600)
+scale = Vector2(1.025, 0.894679)
 curve = SubResource("Curve2D_17l14")
 
 [node name="Ui" parent="." instance=ExtResource("6_inxoj")]
 
 [node name="Wall" type="Sprite2D" parent="."]
-position = Vector2(607, -60)
+position = Vector2(603.73, -60)
 texture = ExtResource("7_w513u")
 
 [node name="Walls" type="Node" parent="."]
@@ -94,3 +96,6 @@ shape = SubResource("RectangleShape2D_8yh72")
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="Walls/W1"]
 position = Vector2(-10.21, 0)
 shape = SubResource("RectangleShape2D_0k862")
+
+[node name="Nest" parent="." instance=ExtResource("8_o2gpr")]
+position = Vector2(2684, -545)

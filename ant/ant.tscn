@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://b2526ml0jylg3"]
 
 [ext_resource type="Script" path="res://ant/ant.gd" id="1_jut72"]
-[ext_resource type="Texture2D" uid="uid://dtiy1jwwrgyey" path="res://assets/ant_walk/ant1.png" id="3_7ymbr"]
-[ext_resource type="Texture2D" uid="uid://b7muly55xwdt3" path="res://assets/ant_walk/ant2.png" id="4_ncm0r"]
-[ext_resource type="Texture2D" uid="uid://c18djrjr08mt2" path="res://assets/ant_walk/ant3.png" id="5_0uvca"]
-[ext_resource type="Texture2D" uid="uid://cdu78oggxg1kr" path="res://assets/ant_walk/ant4.png" id="6_gd2wg"]
-[ext_resource type="Texture2D" uid="uid://hc87tb8044vq" path="res://assets/ant_walk/ant5.png" id="7_1yeuq"]
+[ext_resource type="Texture2D" uid="uid://chlhb4ldi6lg4" path="res://assets/ant_walk/ant1.png" id="3_7ymbr"]
+[ext_resource type="Texture2D" uid="uid://ml3c0qw21vts" path="res://assets/ant_walk/ant2.png" id="4_ncm0r"]
+[ext_resource type="Texture2D" uid="uid://b7l6yfdu0ejm0" path="res://assets/ant_walk/ant3.png" id="5_0uvca"]
+[ext_resource type="Texture2D" uid="uid://b71bvskgowyoy" path="res://assets/ant_walk/ant4.png" id="6_gd2wg"]
+[ext_resource type="Texture2D" uid="uid://bl0r12quigo4b" path="res://assets/ant_walk/ant5.png" id="7_1yeuq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t6tgk"]
 custom_solver_bias = 0.01
