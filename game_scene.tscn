@@ -89,7 +89,6 @@ curve = SubResource("Curve2D_17l14")
 visible = false
 
 [node name="Menu" parent="." instance=ExtResource("8_5q6rt")]
-visible = false
 
 [node name="Wall" type="Sprite2D" parent="."]
 position = Vector2(603.73, -60)

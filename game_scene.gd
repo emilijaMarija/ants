@@ -68,6 +68,7 @@ func begin_first_sugar() -> void:
 	_initial_ant.follow_mouse = true
 	
 func begin_splash() -> void:
+	_menu.visible = true
 	await get_tree().create_timer(0.5).timeout
 	fade_in(_menu.get_node("Splash"), 0.1)
 	await get_tree().create_timer(2).timeout
