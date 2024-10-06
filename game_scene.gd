@@ -18,13 +18,15 @@ extends Node2D
 const max_sugars = 25
 const max_apples = 25
 
-enum {STATE_PRE_START, STATE_FIRST_SUGAR, STATE_MENU, STATE_GAMEPLAY}
+enum {STATE_PRE_START, STATE_FIRST_SUGAR, STATE_SPLASH, STATE_MENU, STATE_GAMEPLAY}
 
 var state = STATE_PRE_START
 
 func change_state(state: int) -> void:
 	self.state = state
-	if state == STATE_MENU:
+	if state == STATE_SPLASH:
+		begin_splash()
+	elif state == STATE_MENU:
 		begin_menu()
 	elif state == STATE_GAMEPLAY:
 		begin_game()
@@ -54,24 +56,27 @@ func _on_apple_picked_up(apple: Node2D, ant: Node2D) -> void:
 func _on_sugar_picked_up(sugar: Node2D, apple: Node2D) -> void:
 	multiply_ants(1)
 	if state == STATE_FIRST_SUGAR:
-		change_state(STATE_MENU)
+		change_state(STATE_SPLASH)
 
 func begin_pre_start() -> void:
 	_initial_ant.follow_mouse = false
 	
 func begin_first_sugar() -> void:
 	_initial_ant.follow_mouse = true
+	
+func begin_splash() -> void:
+	await get_tree().create_timer(0.5).timeout
+	change_state(STATE_MENU)
 
 func begin_menu() -> void:
-	await get_tree().create_timer(1.0).timeout
 	_menu.visible = true
-	await get_tree().create_timer(3.0).timeout
+	await get_tree().create_timer(2.5).timeout
 	_menu.get_node("Splash").visible = false
 	_menu.get_node("Info").visible = true
 
 func begin_game() -> void:
 	_scoreboard.visible = true
-	_menu.visibile = false
+	_menu.visible = false
 	correct_zoom()
 	_sugar_spawn_timer.connect("timeout", spawn_sugar)
 	events.ant_eaten.connect(on_ant_eaten)
