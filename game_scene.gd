@@ -62,9 +62,8 @@ func find_valid_position_near_ants() -> Vector2:
 		var candidate_position = random_ant.global_position + Vector2(randf_range(-50, 50), randf_range(-50, 50))
 		
 		if is_position_valid(candidate_position, safe_distance):
-			return candidate_position  # Valid position found, return it
+			return candidate_position
 	
-	# Fallback: If no valid position is found after max_attempts, return the random position
 	return random_ant.global_position
 
 func is_position_valid(position: Vector2, min_distance: float) -> bool:

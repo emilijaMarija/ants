@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 		(body as CharacterBody2D).velocity = (global_position - body.global_position).normalized() * suck_speed * delta
 		(body as CharacterBody2D).move_and_slide()
 		events.ant_scored.emit()
-		if body.global_position.distance_to(global_position) <= 10:
+		if body.global_position.distance_to(global_position) <= 30:
 			body.queue_free()
 			variables.score += 10
 			variables.score_updated.emit()

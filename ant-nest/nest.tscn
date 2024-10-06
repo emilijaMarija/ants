@@ -45,7 +45,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ck4xm"]
-radius = 52.51
+radius = 80.0
 
 [node name="Nest" type="Node2D"]
 script = ExtResource("1_slhmf")
