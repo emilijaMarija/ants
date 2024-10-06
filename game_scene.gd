@@ -21,6 +21,7 @@ const max_apples = 25
 enum {STATE_PRE_START, STATE_FIRST_SUGAR, STATE_SPLASH, STATE_MENU, STATE_GAMEPLAY}
 
 var state = STATE_PRE_START
+var fade_duration = 0.8
 
 func change_state(state: int) -> void:
 	self.state = state
@@ -66,15 +67,16 @@ func begin_first_sugar() -> void:
 	
 func begin_splash() -> void:
 	await get_tree().create_timer(0.5).timeout
+	fade_in(_menu.get_node("Splash"), 0.1)
+	await get_tree().create_timer(2).timeout
+	fade_out(_menu.get_node("Splash"))
 	change_state(STATE_MENU)
 
 func begin_menu() -> void:
-	_menu.visible = true
-	await get_tree().create_timer(2.5).timeout
-	_menu.get_node("Splash").visible = false
-	_menu.get_node("Info").visible = true
+	fade_in(_menu.get_node("Info"))
 
 func begin_game() -> void:
+	fade_out(_menu.get_node("Info"))
 	_scoreboard.visible = true
 	_menu.visible = false
 	correct_zoom()
@@ -116,6 +118,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _ready() -> void:
+	_menu.get_node("Splash").modulate.a = 0
+	_menu.get_node("Info").modulate.a = 0
 	_sugar_spawn_timer.connect("timeout", spawn_sugar)
 	events.ant_eaten.connect(on_ant_eaten)
 	events.apple_eaten.connect(_on_apple_picked_up)
@@ -161,6 +165,20 @@ func _spawn_apple() -> void:
 
 func on_ant_eaten(body: Node2D) -> void:
 	correct_zoom()
+	
+func fade_in(node, duration: float = fade_duration):
+	var tween = get_tree().create_tween()
+	tween.tween_property(node, "modulate:a", 1, duration)
+	tween.play()
+	await tween.finished
+	tween.kill()
+
+func fade_out(node, duration: float = fade_duration):
+	var tween = get_tree().create_tween()
+	tween.tween_property(node, "modulate:a", 0, duration)
+	tween.play()
+	await tween.finished
+	tween.kill()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

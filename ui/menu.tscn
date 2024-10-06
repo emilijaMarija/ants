@@ -1476,7 +1476,7 @@ RichTextLabel/constants/table_h_separation = 3
 RichTextLabel/constants/table_v_separation = 3
 RichTextLabel/constants/text_highlight_h_padding = 3
 RichTextLabel/constants/text_highlight_v_padding = 3
-RichTextLabel/font_sizes/bold_font_size = 16
+RichTextLabel/font_sizes/bold_font_size = 28
 RichTextLabel/font_sizes/bold_italics_font_size = 16
 RichTextLabel/font_sizes/italics_font_size = 16
 RichTextLabel/font_sizes/mono_font_size = 16
@@ -1520,7 +1520,6 @@ expand_mode = 2
 stretch_mode = 5
 
 [node name="Info" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1547,15 +1546,13 @@ custom_minimum_size = Vector2(540, 0)
 layout_mode = 2
 bbcode_enabled = true
 text = "[center] 
-[img=64]assets/sugar.png[/img]
+[img=56]assets/sugar.png[/img]
 Find food items to attract more ants
 
-
-[img=70]assets/hill.png[/img]
+[img=96]assets/hill.png[/img]
 Earn points by returning to the colony
-
 
 Can you score 1000 points?
 
 
-CLICK ANYWHERE TO CONTINUE[/center]"
+[b]CLICK ANYWHERE TO CONTINUE[/b][/center]"
