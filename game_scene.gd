@@ -12,6 +12,7 @@ extends Node2D
 @onready var _scoreboard = $Scoreboard
 @onready var _initial_ant = $Ants/Ant
 @onready var _menu = $Menu
+@onready var _win_menu = $WinMenu
 @onready var _sound_ant_multiply = $SoundAntMultiply
 
 @onready var _sugar_spawn_timer = $"Sugar spawn timer"
@@ -19,7 +20,8 @@ extends Node2D
 const max_sugars = 25
 const max_apples = 25
 
-enum {STATE_PRE_START, STATE_FIRST_SUGAR, STATE_SPLASH, STATE_MENU, STATE_GAMEPLAY}
+enum {STATE_PRE_START, STATE_FIRST_SUGAR, STATE_SPLASH, STATE_MENU, 
+STATE_GAMEPLAY, STATE_WIN, STATE_RESUME}
 
 var state = STATE_PRE_START
 var fade_duration = 0.8
@@ -38,6 +40,10 @@ func change_state(state: int) -> void:
 		begin_first_sugar()
 	elif state == STATE_MENU:
 		begin_menu()
+	elif state == STATE_WIN:
+		begin_win()
+	elif state == STATE_RESUME:
+		begin_resume()
 	
 
 func multiply_ants(count: int) -> void:
@@ -110,6 +116,14 @@ func begin_game() -> void:
 		spawn_sugar()
 		_spawn_apple()
 		
+func begin_win() -> void:
+	_win_menu.visible = true
+	fade_in(_win_menu.get_node("Info"), 0.5)
+	
+func begin_resume() -> void:
+	fade_out(_win_menu.get_node("Info"))
+	_win_menu.visible = false
+
 func process_game(delta: float) -> void:
 	var avg_pos = Vector2(0, 0)
 	var ant_count = _ants_parent.get_child_count()
@@ -128,6 +142,8 @@ func any_input() -> void:
 		change_state(STATE_FIRST_SUGAR)
 	elif state == STATE_MENU:
 		change_state(STATE_GAMEPLAY)
+	elif state == STATE_WIN:
+		change_state(STATE_RESUME)
 	
 func _unhandled_key_input(event):
 	if event.is_pressed():
@@ -144,6 +160,7 @@ func _on_ant_scored():
 func _ready() -> void:
 	_menu.get_node("Splash").modulate.a = 0
 	_menu.get_node("Info").modulate.a = 0
+	_win_menu.get_node("Info").modulate.a = 0
 	_initial_ant.primary = true
 	_sugar_spawn_timer.connect("timeout", spawn_sugar)
 	events.ant_eaten.connect(on_ant_eaten)
@@ -151,6 +168,7 @@ func _ready() -> void:
 	events.sugar_eaten.connect(_on_sugar_picked_up)
 	events.pumpkin_eaten.connect(_on_pumpkin_picked_up)
 	events.ant_scored.connect(_on_ant_scored)
+	variables.score_updated.connect(_on_score_updated)
 	change_state(STATE_PRE_START)
 
 func correct_zoom() -> void:
@@ -197,6 +215,10 @@ func on_ant_eaten(body: Node2D) -> void:
 			if not ant.primary:
 				ant.primary = true
 				return
+				
+func _on_score_updated() -> void:
+	if variables.score == 10:
+		change_state(STATE_WIN)
 	
 func fade_in(node, duration: float = fade_duration):
 	var tween = get_tree().create_tween()

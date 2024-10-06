@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://d3oi38i7201mq"]
+[gd_scene load_steps=25 format=4 uid="uid://d3oi38i7201mq"]
 
 [ext_resource type="Script" path="res://game_scene.gd" id="1_7dbf0"]
 [ext_resource type="PackedScene" uid="uid://b2526ml0jylg3" path="res://ant/ant.tscn" id="1_o4o3v"]
@@ -10,10 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://cpw8y7smb486s" path="res://assets/background/wall.png" id="7_w513u"]
 [ext_resource type="PackedScene" uid="uid://denyf71crspjq" path="res://ui/menu.tscn" id="8_5q6rt"]
 [ext_resource type="PackedScene" uid="uid://dla07s4l0l71f" path="res://ant-nest/nest.tscn" id="8_o2gpr"]
+[ext_resource type="PackedScene" uid="uid://yj3u74lfuwvw" path="res://ui/winmenu.tscn" id="8_uirhy"]
 [ext_resource type="Texture2D" uid="uid://scu1wgy833i4" path="res://assets/background/wall_top.png" id="10_61i78"]
 [ext_resource type="Texture2D" uid="uid://blatfs6r3s6hy" path="res://assets/background/wall_bottom.png" id="11_s8jj1"]
 [ext_resource type="PackedScene" uid="uid://c5rgj5wj8mmnm" path="res://pumpkin/pumpkin.tscn" id="12_6cu0g"]
-[ext_resource type="AudioStream" uid="uid://b7o4bt3rqtdoc" path="res://assets/sounds/ant_walk.wav" id="14_o2u50"]
+[ext_resource type="AudioStream" uid="uid://8ubq4q475exq" path="res://assets/sounds/ant_walk.wav" id="14_o2u50"]
 
 [sub_resource type="Curve2D" id="Curve2D_17l14"]
 _data = {
@@ -85,6 +86,9 @@ curve = SubResource("Curve2D_17l14")
 visible = false
 
 [node name="Menu" parent="." instance=ExtResource("8_5q6rt")]
+
+[node name="WinMenu" parent="." instance=ExtResource("8_uirhy")]
+visible = false
 
 [node name="Wall" type="Sprite2D" parent="."]
 position = Vector2(603.73, -60)
