@@ -19,11 +19,10 @@ jobs:
         id: build
         uses: manleydev/build-godot-action@v1.5.0
         with:
-          name: example
-          preset: web
+          preset: Web
           debugMode: "true"
       - name: Upload Artifact
         uses: actions/upload-artifact@v4.4.0
         with:
-          name: Client - ${{ matrix.platform }}
+          name: Client
           path: ${{ github.workspace }}/${{ steps.build.outputs.build }}
