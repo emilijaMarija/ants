@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 	for body in _area.get_overlapping_bodies():
 		if not body.is_in_group("ants"):
 			continue
-		body.emit_signal("get_sucked")
+		body.follow_mouse = false
 		(body as CharacterBody2D).velocity = (global_position - body.global_position).normalized() * suck_speed * delta
 		(body as CharacterBody2D).move_and_slide()
 		if body.global_position.distance_to(global_position) <= 10:

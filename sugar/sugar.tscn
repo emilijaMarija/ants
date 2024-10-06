@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d180hlq7afle8"]
 
-[ext_resource type="Texture2D" uid="uid://q7nrvgywkxcv" path="res://assets/sugar.png" id="1_6unxa"]
+[ext_resource type="Texture2D" uid="uid://daflss8nwqfsr" path="res://assets/sugar.png" id="1_6unxa"]
 [ext_resource type="Script" path="res://sugar/area_2d.gd" id="1_gjyol"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tjpye"]

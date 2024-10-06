@@ -9,11 +9,32 @@ extends Node2D
 @onready var _sugars_parent = $Sugars
 @onready var _apples_parent = $Apples
 @onready var _cam = $Camera2D
+@onready var _scoreboard = $Scoreboard
+@onready var _initial_ant = $Ants/Ant
+@onready var _menu = $Menu
 
 @onready var _sugar_spawn_timer = $"Sugar spawn timer"
 
 const max_sugars = 25
 const max_apples = 25
+
+enum {STATE_PRE_START, STATE_FIRST_SUGAR, STATE_MENU, STATE_GAMEPLAY}
+
+var state = STATE_PRE_START
+
+func change_state(state: int) -> void:
+	self.state = state
+	if state == STATE_MENU:
+		begin_menu()
+	elif state == STATE_GAMEPLAY:
+		begin_game()
+	elif state == STATE_PRE_START:
+		begin_pre_start()
+	elif state == STATE_FIRST_SUGAR:
+		begin_first_sugar()
+	elif state == STATE_MENU:
+		begin_menu()
+	
 
 func multiply_ants(count: int) -> void:
 	var ant_count = _ants_parent.get_child_count()
@@ -31,10 +52,23 @@ func _on_pumpkin_picked_up(pumpkin: Node2D, ant: Node2D) -> void:
 func _on_apple_picked_up(apple: Node2D, ant: Node2D) -> void:
 	multiply_ants(3)
 	
-func _on_sugar_picked_up() -> void:
-	multiply_ants(1)
+func _on_sugar_picked_up(sugar: Node2D, apple: Node2D) -> void:
+	if state == STATE_FIRST_SUGAR:
+		change_state(STATE_MENU)
+	else:
+		multiply_ants(1)
 
-func _ready() -> void:
+func begin_pre_start() -> void:
+	_initial_ant.follow_mouse = false
+	
+func begin_first_sugar() -> void:
+	_initial_ant.follow_mouse = true
+
+func begin_menu() -> void:
+	_menu.visible = true
+
+func begin_game() -> void:
+	_scoreboard.visible = true
 	correct_zoom()
 	_sugar_spawn_timer.connect("timeout", spawn_sugar)
 	events.ant_eaten.connect(on_ant_eaten)
@@ -45,6 +79,35 @@ func _ready() -> void:
 		_spawn_apple()
 	for sugar in get_tree().get_nodes_in_group("sugars"):
 		sugar.connect("sugar_picked_up", _on_sugar_picked_up)
+		
+func process_game(delta: float) -> void:
+	var avg_pos = Vector2(0, 0)
+	var ant_count = _ants_parent.get_child_count()
+	for i in range(ant_count):
+		avg_pos += _ants_parent.get_child(i).position
+	if ant_count > 0:
+		avg_pos /= ant_count
+	_cam.position = avg_pos * 0.8 + get_global_mouse_position() * 0.2
+	if ant_count == 0:
+		get_tree().quit()
+		
+func _unhandled_key_input(event):
+	if event.is_pressed() and state == STATE_PRE_START:
+		change_state(STATE_FIRST_SUGAR)
+		
+func _input(event: InputEvent) -> void:
+	if state == STATE_PRE_START and event is InputEventMouseButton:
+		change_state(STATE_FIRST_SUGAR)
+
+func process_menu(delta: float) -> void:
+	pass
+
+func _ready() -> void:
+	_sugar_spawn_timer.connect("timeout", spawn_sugar)
+	events.ant_eaten.connect(on_ant_eaten)
+	events.apple_eaten.connect(_on_apple_picked_up)
+	events.sugar_eaten.connect(_on_sugar_picked_up)
+	change_state(STATE_PRE_START)
 
 func correct_zoom() -> void:
 	var ant_count = _ants_parent.get_child_count()
@@ -65,6 +128,8 @@ func generate_apple_position() -> Vector2:
 	return Vector2(random_x, random_y)
 
 func spawn_sugar() -> void:
+	if state != STATE_GAMEPLAY:
+		return
 	if _sugars_parent.get_child_count() >= max_sugars:
 		return
 	var instance = sugar_scene.instantiate()
@@ -86,12 +151,7 @@ func on_ant_eaten(body: Node2D) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var avg_pos = Vector2(0, 0)
-	var ant_count = _ants_parent.get_child_count()
-	for i in range(ant_count):
-		avg_pos += _ants_parent.get_child(i).position
-	if ant_count > 0:
-		avg_pos /= ant_count
-	_cam.position = avg_pos * 0.8 + get_global_mouse_position() * 0.2
-	if ant_count == 0:
-		get_tree().quit()
+	if state == STATE_GAMEPLAY:
+		process_game(delta)
+	elif state == STATE_MENU:
+		process_menu(delta)

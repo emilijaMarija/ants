@@ -95,12 +95,11 @@ func _on_suck_area_body_entered(body: Node2D) -> void:
 		if state != STATE_SUCKING and _suck_cooldown.time_left <= 0:
 			state = STATE_SUCKING
 			_anim.play("suck")
-			print("suck start")
 			_suck_timer.start()
 		elif state != STATE_SUCKING:
 			return
 		sucked_bodies.append(body)
-		body.emit_signal("get_sucked")
+		body.follow_mouse = false
 
 
 func _on_suck_timer_timeout() -> void:
@@ -109,6 +108,5 @@ func _on_suck_timer_timeout() -> void:
 	state = STATE_PATROLLING
 	for body in sucked_bodies:
 		if not body.is_queued_for_deletion():
-			body.emit_signal("get_unsucked")
+			body.follow_mouse = true
 	sucked_bodies.clear()
-	print("suck end")

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cd778eev4annj" path="res://apple/apple.tscn" id="4_p16ac"]
 [ext_resource type="TileSet" uid="uid://bdop0u32x28ex" path="res://assets/background/tile_set.tres" id="4_s0e5j"]
 [ext_resource type="PackedScene" uid="uid://7d6bwmfcr17c" path="res://anteater/anteater.tscn" id="5_lh8r2"]
-[ext_resource type="PackedScene" uid="uid://cultwn2a7j772" path="res://ui/ui.tscn" id="6_inxoj"]
+[ext_resource type="PackedScene" uid="uid://cultwn2a7j772" path="res://ui/scoreboard.tscn" id="6_inxoj"]
 [ext_resource type="Texture2D" uid="uid://cpw8y7smb486s" path="res://assets/background/wall.png" id="7_w513u"]
 [ext_resource type="PackedScene" uid="uid://dla07s4l0l71f" path="res://ant-nest/nest.tscn" id="8_o2gpr"]
 [ext_resource type="Texture2D" uid="uid://scu1wgy833i4" path="res://assets/background/wall_top.png" id="10_61i78"]
@@ -59,18 +59,19 @@ path = NodePath("../Path2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, 0.7)
-zoom = Vector2(0.7, 0.7)
+offset = Vector2(520, 800)
+zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 
 [node name="Ants" type="Node" parent="."]
 
 [node name="Ant" parent="Ants" groups=["ants"] instance=ExtResource("1_o4o3v")]
-position = Vector2(184, 883)
+position = Vector2(372, 800)
 
 [node name="Sugars" type="Node2D" parent="."]
 
 [node name="Sugar" parent="Sugars" groups=["sugars"] instance=ExtResource("2_aq5n8")]
-position = Vector2(175, -31)
+position = Vector2(609, 801)
 
 [node name="Apples" type="Node" parent="."]
 
@@ -83,7 +84,8 @@ position = Vector2(2700, -600)
 scale = Vector2(1.025, 0.894679)
 curve = SubResource("Curve2D_17l14")
 
-[node name="Ui" parent="." instance=ExtResource("6_inxoj")]
+[node name="Scoreboard" parent="." instance=ExtResource("6_inxoj")]
+visible = false
 
 [node name="Wall" type="Sprite2D" parent="."]
 position = Vector2(603.73, -60)
