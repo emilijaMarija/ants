@@ -43,8 +43,8 @@ radius = 328.12
 height = 656.24
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_idxru"]
-radius = 38.45
-height = 130.23
+radius = 23.12
+height = 75.04
 
 [node name="Anteater" type="CharacterBody2D"]
 script = ExtResource("1_5buyl")

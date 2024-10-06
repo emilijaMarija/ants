@@ -34,12 +34,12 @@ position_smoothing_enabled = true
 [node name="Ants" type="Node" parent="."]
 
 [node name="Ant" parent="Ants" groups=["ants"] instance=ExtResource("1_o4o3v")]
-position = Vector2(396, -254)
+position = Vector2(359, -337)
 
 [node name="Sugars" type="Node2D" parent="."]
 
 [node name="Sugar" parent="Sugars" groups=["sugars"] instance=ExtResource("2_aq5n8")]
-position = Vector2(111, -29)
+position = Vector2(175, -31)
 
 [node name="Sugar spawn area" type="Area2D" parent="."]
 visible = false
