@@ -46,9 +46,32 @@ func multiply_ants(count: int) -> void:
 	correct_zoom()
 	for i in range(max(1, count)):
 		var new_ant = ant_scene.instantiate()
-		new_ant.position = _ants_parent.get_child(0).position
+		#new_ant.position = _ants_parent.get_child(wrapi(i, 0, _ants_parent.get_child_count())).position
+		new_ant.position = find_valid_position_near_ants()
 		new_ant.add_to_group("ants")
 		_ants_parent.call_deferred("add_child", new_ant)
+
+func find_valid_position_near_ants() -> Vector2:
+	var safe_distance = 30
+	var max_attempts = 10
+	
+	var random_ant: Node2D = null
+	for attempt in range(max_attempts):
+		random_ant = _ants_parent.get_child(randi() % _ants_parent.get_child_count())
+		
+		var candidate_position = random_ant.global_position + Vector2(randf_range(-50, 50), randf_range(-50, 50))
+		
+		if is_position_valid(candidate_position, safe_distance):
+			return candidate_position  # Valid position found, return it
+	
+	# Fallback: If no valid position is found after max_attempts, return the random position
+	return random_ant.global_position
+
+func is_position_valid(position: Vector2, min_distance: float) -> bool:
+	for ant in _ants_parent.get_children():
+		if global_position.distance_to(ant.global_position) < min_distance:
+			return false 
+	return true
 
 func _on_pumpkin_picked_up(pumpkin: Node2D, ant: Node2D) -> void:
 	multiply_ants(5)
