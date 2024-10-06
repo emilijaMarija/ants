@@ -169,6 +169,12 @@ func _spawn_apple() -> void:
 
 func on_ant_eaten(body: Node2D) -> void:
 	correct_zoom()
+	# Pick another primary ant if current one was eaten
+	if body.primary:
+		for ant in _ants_parent.get_children():
+			if not ant.primary:
+				ant.primary = true
+				return
 	
 func fade_in(node, duration: float = fade_duration):
 	var tween = get_tree().create_tween()

@@ -55,10 +55,6 @@ apple_scene = ExtResource("4_p16ac")
 tile_map_data = PackedByteArray("AAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAABAP//AQAAAAAAAAABAAAAAQAAAAAAAAACAAAAAQAAAAAAAAACAP//AQAAAAAAAAAAAAEAAwAAAAAAAAD//wEABAAAAAAAAAD//wAABQAAAAAAAAD/////BQAAAAAAAAABAAEABgAAAAAAAAACAAEAAQAAAAAAAAADAAEAAQAAAAAAAAADAAAAAQAAAAAAAAADAP//AQAAAAAAAAADAP7/AQAAAAAAAAACAP7/BgAAAAAAAAABAP7/AQAAAAAAAAAAAP7/AQAAAAAAAAD///7/AQAAAAAAAAD///3/AQAAAAAAAAAAAP3/AQAAAAAAAAABAP3/AQAAAAAAAAACAP3/AQAAAAAAAAADAP3/AQAAAAAAAAA=")
 tile_set = ExtResource("4_s0e5j")
 
-[node name="Anteater" parent="." instance=ExtResource("5_lh8r2")]
-position = Vector2(2323, -539)
-path = NodePath("../Path2D")
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(520, 800)
 zoom = Vector2(2, 2)
@@ -154,6 +150,10 @@ position = Vector2(1044, -1310)
 position = Vector2(901, -1389)
 rotation = -2.6337
 scale = Vector2(1.5, 1.5)
+
+[node name="Anteater" parent="." instance=ExtResource("5_lh8r2")]
+position = Vector2(2323, -539)
+path = NodePath("../Path2D")
 
 [node name="SoundAntMultiply" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_o2u50")
