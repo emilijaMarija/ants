@@ -13,6 +13,13 @@ extends Node2D
 
 const max_sugars = 20
 
+func correct_zoom() -> void:
+	var ant_count = _ants_parent.get_child_count()
+	var max_ants_zoom = 30.0
+	var x = clamp(ant_count, 0, max_ants_zoom)
+	_cam.zoom = Vector2(1, 1) * (2.0 - (2.0 / max_ants_zoom) * x)
+	print(_cam.zoom)
+
 func generate_sugar_position() -> Vector2:
 	var extents = _sugar_spawn_area.get_node("CollisionShape2D").shape.extents
 
@@ -30,8 +37,12 @@ func spawn_sugar() -> void:
 	_sugars_parent.add_child(instance)
 	instance.connect("sugar_picked_up", _on_sugar_picked_up)
 
+func on_ant_eaten(body: Node2D) -> void:
+	correct_zoom()
+
 func _ready() -> void:
 	_sugar_spawn_timer.connect("timeout", spawn_sugar)
+	events.ant_eaten.connect(on_ant_eaten)
 	for i in 10:
 		spawn_sugar()
 	for sugar in get_tree().get_nodes_in_group("sugars"):
@@ -39,7 +50,7 @@ func _ready() -> void:
 
 func _on_sugar_picked_up() -> void:
 	var ant_count = _ants_parent.get_child_count()
-	_cam.zoom *=0.98
+	correct_zoom()
 	for i in range(max(1, ant_count * 0.1)):
 		var new_ant = ant_scene.instantiate()
 		new_ant.position = _ants_parent.get_child(i).position

@@ -3,11 +3,13 @@ extends CharacterBody2D
 @export_group("Ant eater options")
 @export var path: NodePath
 
-@onready var _anim = $AnimatedSprite2D
+@onready var _anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var _sniff_area: Area2D = $"Sniff area"
 @onready var _mouth: Node2D = $"Mouth"
+@onready var _suck_timer: Timer = $"Suck timer"
+@onready var _suck_cooldown: Timer = $"Suck cooldown"
 
-enum { STATE_CHASING, STATE_PATROLLING }
+enum { STATE_CHASING, STATE_PATROLLING, STATE_SUCKING }
 
 var patrol_points
 var patrol_index = 0
@@ -23,7 +25,7 @@ const suck_speed = 50000.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_anim.play()
+	_anim.play("walk")
 	patrol_points = get_node(path).curve.get_baked_points()
 
 
@@ -37,7 +39,7 @@ func _process(delta: float) -> void:
 			sucked_bodies.remove_at(i)
 			if target == body:
 				target = null
-				state = STATE_PATROLLING
+			events.ant_eaten.emit(body)
 			continue
 		if body is CharacterBody2D:
 			body.velocity = dir * suck_speed * delta
@@ -52,27 +54,34 @@ func patrol(delta: float) -> void:
 		patrol_index = wrapi(patrol_index + 1, 0, patrol_points.size())
 		target = patrol_points[patrol_index]
 	velocity = (target - position).normalized() * move_speed
+	rotation = velocity.angle() + deg_to_rad(90)
 	
 func chase(delta: float) -> void:
 	velocity = (target.position - position).normalized() * move_speed
+	rotation = velocity.angle() + deg_to_rad(90)
 
 func _physics_process(delta: float):
 	if state == STATE_PATROLLING:
 		patrol(delta)
-	else:
+	elif state == STATE_CHASING:
 		chase(delta)
+	else:
+		velocity = Vector2(0, 0)
+		pass
 		
-	rotation = velocity.angle() + deg_to_rad(90)
 	move_and_slide()
 
 
 func _on_sniff_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("ants"):
+	if state == STATE_PATROLLING and body.is_in_group("ants"):
 		target = body
 		state = STATE_CHASING
+		_anim.play("walk")
 
 
 func _on_sniff_area_body_exited(body: Node2D) -> void:
+	if state != STATE_CHASING:
+		return
 	for b in _sniff_area.get_overlapping_bodies():
 		if b.is_in_group("ants"):
 			return
@@ -81,5 +90,23 @@ func _on_sniff_area_body_exited(body: Node2D) -> void:
 
 func _on_suck_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("ants") and sucked_bodies.find(body) == -1:
+		if state != STATE_SUCKING and _suck_cooldown.time_left <= 0:
+			state = STATE_SUCKING
+			_anim.play("suck")
+			print("suck start")
+			_suck_timer.start()
+		elif state != STATE_SUCKING:
+			return
 		sucked_bodies.append(body)
 		body.emit_signal("get_sucked")
+
+
+func _on_suck_timer_timeout() -> void:
+	_suck_cooldown.start()
+	_anim.play("walk")
+	state = STATE_PATROLLING
+	for body in sucked_bodies:
+		if not body.is_queued_for_deletion():
+			body.emit_signal("get_unsucked")
+	sucked_bodies.clear()
+	print("suck end")

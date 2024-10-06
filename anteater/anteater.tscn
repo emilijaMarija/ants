@@ -1,15 +1,52 @@
-[gd_scene load_steps=12 format=3 uid="uid://7d6bwmfcr17c"]
+[gd_scene load_steps=20 format=3 uid="uid://7d6bwmfcr17c"]
 
 [ext_resource type="Script" path="res://anteater/anteater.gd" id="1_5buyl"]
-[ext_resource type="Texture2D" uid="uid://d3i2uv1aotuc5" path="res://assets/anteater_walk/anteater_walking1.png" id="1_o3uy1"]
-[ext_resource type="Texture2D" uid="uid://d1dkfq0ownb" path="res://assets/anteater_walk/anteater_walking2.png" id="2_g6p0p"]
-[ext_resource type="Texture2D" uid="uid://cpyu2ok2g5024" path="res://assets/anteater_walk/anteater_walking3.png" id="3_vvqks"]
-[ext_resource type="Texture2D" uid="uid://bdct3lsoxf18v" path="res://assets/anteater_walk/anteater_walking4.png" id="4_3f852"]
-[ext_resource type="Texture2D" uid="uid://bhfp2k4g5wgg4" path="res://assets/anteater_walk/anteater_walking5.png" id="5_38gwj"]
-[ext_resource type="Texture2D" uid="uid://svqeck6g7n4a" path="res://assets/anteater_walk/anteater_walking6.png" id="6_wtluh"]
+[ext_resource type="Texture2D" uid="uid://ux4vrivp6ygd" path="res://assets/anteater_walk/anteater_walking1.png" id="1_o3uy1"]
+[ext_resource type="Texture2D" uid="uid://ch4ce1qc5exn6" path="res://assets/anteating/anteating1.png" id="2_6n2vm"]
+[ext_resource type="Texture2D" uid="uid://gcbmnkoc6o1f" path="res://assets/anteater_walk/anteater_walking2.png" id="2_g6p0p"]
+[ext_resource type="Texture2D" uid="uid://domhyly4r1ou0" path="res://assets/anteating/anteating2.png" id="3_gd3qr"]
+[ext_resource type="Texture2D" uid="uid://dit5r03hk46ea" path="res://assets/anteater_walk/anteater_walking3.png" id="3_vvqks"]
+[ext_resource type="Texture2D" uid="uid://0gh2giylbaw1" path="res://assets/anteater_walk/anteater_walking4.png" id="4_3f852"]
+[ext_resource type="Texture2D" uid="uid://cdl5335bskg8w" path="res://assets/anteating/anteating3.png" id="4_qgncd"]
+[ext_resource type="Texture2D" uid="uid://dek8ww7wwl8ed" path="res://assets/anteater_walk/anteater_walking5.png" id="5_38gwj"]
+[ext_resource type="Texture2D" uid="uid://bg3ecpj8gn16a" path="res://assets/anteating/anteating4.png" id="5_ipriw"]
+[ext_resource type="Texture2D" uid="uid://ca2chysedquat" path="res://assets/anteating/anteating5.png" id="6_chlmm"]
+[ext_resource type="Texture2D" uid="uid://dk642at4g2g5d" path="res://assets/anteater_walk/anteater_walking6.png" id="6_wtluh"]
+[ext_resource type="Texture2D" uid="uid://dsxoheqhahgii" path="res://assets/anteating/anteating6.png" id="7_i1wff"]
+[ext_resource type="Texture2D" uid="uid://cgbvbviwud88v" path="res://assets/anteating/anteating7.png" id="8_iv4xi"]
+[ext_resource type="Texture2D" uid="uid://d8o8j1atn3g0" path="res://assets/anteating/anteating8.png" id="9_v5yts"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2je6i"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6n2vm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gd3qr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qgncd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ipriw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_chlmm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_i1wff")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_iv4xi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_v5yts")
+}],
+"loop": true,
+"name": &"suck",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_o3uy1")
@@ -30,7 +67,7 @@ animations = [{
 "texture": ExtResource("6_wtluh")
 }],
 "loop": true,
-"name": &"default",
+"name": &"walk",
 "speed": 5.0
 }]
 
@@ -52,7 +89,7 @@ script = ExtResource("1_5buyl")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_2je6i")
-frame_progress = 0.380455
+animation = &"suck"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -0.000188623
@@ -72,6 +109,14 @@ shape = SubResource("CapsuleShape2D_idxru")
 [node name="Mouth" type="Node2D" parent="."]
 position = Vector2(0, -176)
 
+[node name="Suck timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="Suck cooldown" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="Sniff area" to="." method="_on_sniff_area_body_entered"]
 [connection signal="body_exited" from="Sniff area" to="." method="_on_sniff_area_body_exited"]
 [connection signal="body_entered" from="Suck area" to="." method="_on_suck_area_body_entered"]
+[connection signal="timeout" from="Suck timer" to="." method="_on_suck_timer_timeout"]
