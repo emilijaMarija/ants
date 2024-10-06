@@ -9,7 +9,6 @@ extends Node2D
 @onready var _cam = $Camera2D
 
 @onready var _sugar_spawn_timer = $"Sugar spawn timer"
-@onready var _sugar_spawn_area = $"Sugar spawn area"
 
 const max_sugars = 20
 
@@ -20,12 +19,10 @@ func correct_zoom() -> void:
 	_cam.zoom = Vector2(1, 1) * (2.0 - (2.0 / max_ants_zoom) * x)
 
 func generate_sugar_position() -> Vector2:
-	var extents = _sugar_spawn_area.get_node("CollisionShape2D").shape.extents
-
-	var random_x = randf_range(-extents.x, extents.x)
-	var random_y = randf_range(-extents.y, extents.y)
-
-	return _sugar_spawn_area.global_position + Vector2(random_x, random_y)
+	var random_x = randf_range(32, 1000)
+	var random_y = randf_range(32, -2000)
+	
+	return Vector2(random_x, random_y)
 
 func spawn_sugar() -> void:
 	if _sugars_parent.get_child_count() >= max_sugars:
