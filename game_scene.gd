@@ -24,6 +24,10 @@ func multiply_ants(count: int) -> void:
 		new_ant.add_to_group("ants")
 		_ants_parent.add_child(new_ant)
 
+func _on_pumpkin_picked_up(pumpkin: Node2D, ant: Node2D) -> void:
+	print("should multiply")
+	multiply_ants(5)
+
 func _on_apple_picked_up(apple: Node2D, ant: Node2D) -> void:
 	multiply_ants(3)
 	
@@ -35,6 +39,7 @@ func _ready() -> void:
 	_sugar_spawn_timer.connect("timeout", spawn_sugar)
 	events.ant_eaten.connect(on_ant_eaten)
 	events.apple_eaten.connect(_on_apple_picked_up)
+	events.pumpkin_eaten.connect(_on_pumpkin_picked_up)
 	for i in 25:
 		spawn_sugar()
 		_spawn_apple()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cultwn2a7j772"]
 
-[ext_resource type="Texture2D" uid="uid://clvjhlr0j8gli" path="res://assets/UI/board_leaf.png" id="1_o5toh"]
+[ext_resource type="Texture2D" uid="uid://emj71njltww5" path="res://assets/UI/board_leaf.png" id="1_o5toh"]
 [ext_resource type="FontFile" uid="uid://cw71ymtxw0vr1" path="res://ui/PixelifySans-Regular.ttf" id="1_rtcxu"]
 [ext_resource type="Script" path="res://ui/score.gd" id="1_wsofg"]
 

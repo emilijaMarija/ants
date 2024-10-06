@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://d3oi38i7201mq"]
+[gd_scene load_steps=22 format=4 uid="uid://d3oi38i7201mq"]
 
 [ext_resource type="Script" path="res://game_scene.gd" id="1_7dbf0"]
 [ext_resource type="PackedScene" uid="uid://b2526ml0jylg3" path="res://ant/ant.tscn" id="1_o4o3v"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dla07s4l0l71f" path="res://ant-nest/nest.tscn" id="8_o2gpr"]
 [ext_resource type="Texture2D" uid="uid://scu1wgy833i4" path="res://assets/background/wall_top.png" id="10_61i78"]
 [ext_resource type="Texture2D" uid="uid://blatfs6r3s6hy" path="res://assets/background/wall_bottom.png" id="11_s8jj1"]
+[ext_resource type="PackedScene" uid="uid://c5rgj5wj8mmnm" path="res://pumpkin/pumpkin.tscn" id="12_6cu0g"]
 
 [sub_resource type="Curve2D" id="Curve2D_17l14"]
 _data = {
@@ -138,5 +139,15 @@ texture = ExtResource("10_61i78")
 [node name="WallBottom" type="Sprite2D" parent="."]
 position = Vector2(668, 1623)
 texture = ExtResource("11_s8jj1")
+
+[node name="Pumpkins" type="Node" parent="."]
+
+[node name="Pumpkin" parent="Pumpkins" instance=ExtResource("12_6cu0g")]
+position = Vector2(1044, -1310)
+
+[node name="Pumpkin2" parent="Pumpkins" instance=ExtResource("12_6cu0g")]
+position = Vector2(901, -1389)
+rotation = -2.6337
+scale = Vector2(1.5, 1.5)
 
 [connection signal="timeout" from="Apple spawn timer" to="." method="_spawn_apple"]
