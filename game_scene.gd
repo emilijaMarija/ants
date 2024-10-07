@@ -13,6 +13,7 @@ extends Node2D
 @onready var _initial_ant = $Ants/Ant
 @onready var _menu = $Menu
 @onready var _win_menu = $WinMenu
+@onready var _loss_menu = $LossMenu
 
 @onready var _sound_ant_multiply = $SoundAntMultiply
 @onready var _sound_background: AudioStreamPlayer = $SoundBackground
@@ -24,7 +25,7 @@ const max_sugars = 25
 const max_apples = 50
 
 enum {STATE_PRE_START, STATE_FIRST_SUGAR, STATE_SPLASH, STATE_MENU, 
-STATE_GAMEPLAY, STATE_WIN, STATE_RESUME}
+STATE_GAMEPLAY, STATE_WIN, STATE_RESUME, STATE_LOSS, STATE_RETRY}
 
 var state = STATE_PRE_START
 var fade_duration = 0.8
@@ -47,7 +48,10 @@ func change_state(state: int) -> void:
 		begin_win()
 	elif state == STATE_RESUME:
 		begin_resume()
-	
+	elif state == STATE_LOSS:
+		begin_loss()
+	elif  state == STATE_RETRY:
+		begin_retry()
 
 func multiply_ants(count: int) -> void:
 	_sound_ant_multiply.play()
@@ -136,22 +140,38 @@ func begin_win() -> void:
 	_sound_background.stop()
 	_sound_win.play()
 	
-	
 func begin_resume() -> void:
 	fade_out(_win_menu.get_node("Info"))
 	_win_menu.visible = false
 
+func begin_loss() -> void:
+	_loss_menu.visible = true
+	fade_in(_loss_menu.get_node("Info"))
+	variables.score = 0
+	variables.score_updated.emit()
+
+func begin_retry() -> void:
+	fade_out(_loss_menu.get_node("Info"))
+	_loss_menu.visible = false
+	var new_ant = ant_scene.instantiate()
+	new_ant.position = Vector2(372,800)
+	new_ant.add_to_group("ants")
+	_ants_parent.call_deferred("add_child", new_ant)
+	state = STATE_GAMEPLAY
+	
+
 func process_game(delta: float) -> void:
 	var avg_pos = Vector2(0, 0)
 	var ant_count = _ants_parent.get_child_count()
+	
+	if ant_count == 0:
+		return
+	
 	for i in range(ant_count):
 		avg_pos += _ants_parent.get_child(i).global_position
 	if ant_count > 0:
 		avg_pos /= ant_count
 	_cam.global_position = avg_pos * 0.8 + get_global_mouse_position() * 0.2
-	
-	if ant_count == 0:
-		get_tree().quit()
 		
 		
 func any_input() -> void:
@@ -161,6 +181,8 @@ func any_input() -> void:
 		change_state(STATE_GAMEPLAY)
 	elif state == STATE_WIN:
 		change_state(STATE_RESUME)
+	elif state == STATE_LOSS:
+		change_state(STATE_RETRY)
 	
 func _unhandled_key_input(event):
 	if event.is_pressed():
@@ -178,6 +200,7 @@ func _ready() -> void:
 	_menu.get_node("Splash").modulate.a = 0
 	_menu.get_node("Info").modulate.a = 0
 	_win_menu.get_node("Info").modulate.a = 0
+	_loss_menu.get_node("Info").modulate.a = 0
 	_initial_ant.primary = true
 	_sugar_spawn_timer.connect("timeout", spawn_sugar)
 	events.ant_eaten.connect(on_ant_eaten)
@@ -231,6 +254,11 @@ func _spawn_apple() -> void:
 	_apples_parent.add_child(instance)
 
 func on_ant_eaten(body: Node2D) -> void:
+	var ant_count = _ants_parent.get_child_count()
+	
+	if ant_count == 1:
+		change_state(STATE_LOSS)
+	
 	correct_zoom()
 	# Pick another primary ant if current one was eaten
 	if body.primary:

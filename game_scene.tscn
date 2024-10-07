@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://d3oi38i7201mq"]
+[gd_scene load_steps=30 format=4 uid="uid://d3oi38i7201mq"]
 
 [ext_resource type="Script" path="res://game_scene.gd" id="1_7dbf0"]
 [ext_resource type="PackedScene" uid="uid://b2526ml0jylg3" path="res://ant/ant.tscn" id="1_o4o3v"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://denyf71crspjq" path="res://ui/menu.tscn" id="8_5q6rt"]
 [ext_resource type="PackedScene" uid="uid://dla07s4l0l71f" path="res://ant-nest/nest.tscn" id="8_o2gpr"]
 [ext_resource type="PackedScene" uid="uid://yj3u74lfuwvw" path="res://ui/winmenu.tscn" id="8_uirhy"]
+[ext_resource type="PackedScene" uid="uid://df686dcxlxo5c" path="res://ui/lossmenu.tscn" id="9_upopn"]
 [ext_resource type="Texture2D" uid="uid://scu1wgy833i4" path="res://assets/background/wall_top.png" id="10_61i78"]
 [ext_resource type="Texture2D" uid="uid://1t72j4y4kgf8" path="res://assets/background/poison_line.png" id="10_oywlk"]
 [ext_resource type="Texture2D" uid="uid://bea82eeqaqbla" path="res://assets/background/ant_poison.png" id="11_bdcga"]
@@ -102,6 +103,9 @@ visible = false
 [node name="Menu" parent="." instance=ExtResource("8_5q6rt")]
 
 [node name="WinMenu" parent="." instance=ExtResource("8_uirhy")]
+visible = false
+
+[node name="LossMenu" parent="." instance=ExtResource("9_upopn")]
 visible = false
 
 [node name="Wall" type="Sprite2D" parent="."]
