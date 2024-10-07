@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://d3oi38i7201mq"]
+[gd_scene load_steps=32 format=4 uid="uid://d3oi38i7201mq"]
 
 [ext_resource type="Script" path="res://game_scene.gd" id="1_7dbf0"]
 [ext_resource type="PackedScene" uid="uid://b2526ml0jylg3" path="res://ant/ant.tscn" id="1_o4o3v"]
@@ -13,13 +13,14 @@
 [ext_resource type="PackedScene" uid="uid://yj3u74lfuwvw" path="res://ui/winmenu.tscn" id="8_uirhy"]
 [ext_resource type="PackedScene" uid="uid://df686dcxlxo5c" path="res://ui/lossmenu.tscn" id="9_upopn"]
 [ext_resource type="Texture2D" uid="uid://scu1wgy833i4" path="res://assets/background/wall_top.png" id="10_61i78"]
+[ext_resource type="PackedScene" uid="uid://b4xkjx61815e7" path="res://ui/starttext.tscn" id="10_d7f7p"]
 [ext_resource type="Texture2D" uid="uid://1t72j4y4kgf8" path="res://assets/background/poison_line.png" id="10_oywlk"]
 [ext_resource type="Texture2D" uid="uid://bea82eeqaqbla" path="res://assets/background/ant_poison.png" id="11_bdcga"]
 [ext_resource type="Texture2D" uid="uid://blatfs6r3s6hy" path="res://assets/background/wall_bottom.png" id="11_s8jj1"]
 [ext_resource type="PackedScene" uid="uid://c5rgj5wj8mmnm" path="res://pumpkin/pumpkin.tscn" id="12_6cu0g"]
 [ext_resource type="AudioStream" uid="uid://8ubq4q475exq" path="res://assets/sounds/ant_walk.wav" id="14_o2u50"]
-[ext_resource type="AudioStream" uid="uid://dp8dd24xr5ekg" path="res://assets/sounds/surprise_song.wav" id="16_euw56"]
-[ext_resource type="AudioStream" uid="uid://di4wcahgw0wrk" path="res://assets/sounds/background beat.wav" id="16_oaj6o"]
+[ext_resource type="AudioStream" uid="uid://chwqxiwxaspq2" path="res://assets/sounds/surprise end song.wav" id="19_hpgq2"]
+[ext_resource type="AudioStream" uid="uid://curpxlhx2040u" path="res://assets/sounds/background_track.wav" id="20_a4uxy"]
 
 [sub_resource type="Curve2D" id="Curve2D_17l14"]
 _data = {
@@ -110,6 +111,8 @@ visible = false
 
 [node name="LossMenu" parent="." instance=ExtResource("9_upopn")]
 visible = false
+
+[node name="StartText" parent="." instance=ExtResource("10_d7f7p")]
 
 [node name="Wall" type="Sprite2D" parent="."]
 position = Vector2(603.73, -60)
@@ -251,9 +254,10 @@ path = NodePath("../Path2D3")
 stream = ExtResource("14_o2u50")
 
 [node name="SoundWin" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("16_euw56")
+stream = ExtResource("19_hpgq2")
 
 [node name="SoundBackground" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("16_oaj6o")
+stream = ExtResource("20_a4uxy")
 
 [connection signal="timeout" from="Apple spawn timer" to="." method="_spawn_apple"]
+[connection signal="finished" from="SoundBackground" to="." method="_on_sound_background_finished"]

@@ -37,6 +37,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	for i in range(sucked_bodies.size() - 1, -1, -1):
 		var body = sucked_bodies[i]
+		if not is_instance_valid(body):
+			sucked_bodies.remove_at(i)
+			continue
 		var dir = (_mouth.global_position - body.global_position).normalized()
 		if (_mouth.global_position - body.global_position).length() <= 10:
 			body.queue_free()
@@ -70,7 +73,7 @@ func chase(delta: float) -> void:
 	rotation = velocity.angle() + deg_to_rad(90)
 
 func _physics_process(delta: float):
-	if state == STATE_PATROLLING:
+	if state == STATE_PATROLLING || variables.state == variables.STATE_WIN:
 		patrol(delta)
 	elif state == STATE_CHASING:
 		chase(delta)
@@ -82,6 +85,9 @@ func _physics_process(delta: float):
 
 
 func _on_sniff_area_body_entered(body: Node2D) -> void:
+	if variables.state == variables.STATE_WIN:
+		return
+	
 	if state == STATE_PATROLLING and body.is_in_group("ants"):
 		target = body
 		state = STATE_CHASING

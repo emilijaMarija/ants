@@ -3,3 +3,8 @@ extends Node
 var score = 0
 
 signal score_updated()
+
+enum {STATE_PRE_START, STATE_FIRST_SUGAR, STATE_SPLASH, STATE_MENU, 
+STATE_GAMEPLAY, STATE_WIN, STATE_RESUME, STATE_LOSS, STATE_RETRY}
+
+var state = STATE_PRE_START

@@ -3,11 +3,12 @@ extends Node2D
 @onready var _anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var _area: Area2D = $Area2D
 @onready var _sound_score: AudioStreamPlayer = $ScoreSound
+@onready var _timer: Timer = $Timer
 
 const suck_speed = 50000.0
 
 func _ready() -> void:
-	pass
+	_anim.play("default")
 
 
 func _process(delta: float) -> void:
@@ -23,7 +24,13 @@ func _process(delta: float) -> void:
 		(body as CharacterBody2D).move_and_slide()
 		events.ant_scored.emit()
 		if body.global_position.distance_to(global_position) <= 30:
+			_anim.play("levelup")
+			_timer.start()
 			body.queue_free()
 			variables.score += 10
 			variables.score_updated.emit()
 			_sound_score.play()
+
+
+func _on_timer_timeout() -> void:
+	_anim.play("default")

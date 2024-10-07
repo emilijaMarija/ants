@@ -12,6 +12,7 @@ extends Node2D
 @onready var _scoreboard = $Scoreboard
 @onready var _initial_ant = $Ants/Ant
 @onready var _menu = $Menu
+@onready var _start_text = $StartText
 @onready var _win_menu = $WinMenu
 @onready var _loss_menu = $LossMenu
 
@@ -24,33 +25,29 @@ extends Node2D
 const max_sugars = 25
 const max_apples = 50
 
-enum {STATE_PRE_START, STATE_FIRST_SUGAR, STATE_SPLASH, STATE_MENU, 
-STATE_GAMEPLAY, STATE_WIN, STATE_RESUME, STATE_LOSS, STATE_RETRY}
-
-var state = STATE_PRE_START
-var fade_duration = 0.8
+var fade_duration = 0.7
 
 func change_state(state: int) -> void:
-	self.state = state
-	if state == STATE_SPLASH:
+	variables.state = state
+	if variables.state == variables.STATE_SPLASH:
 		begin_splash()
-	elif state == STATE_MENU:
+	elif variables.state == variables.STATE_MENU:
 		begin_menu()
-	elif state == STATE_GAMEPLAY:
+	elif variables.state == variables.STATE_GAMEPLAY:
 		begin_game()
-	elif state == STATE_PRE_START:
+	elif variables.state == variables.STATE_PRE_START:
 		begin_pre_start()
-	elif state == STATE_FIRST_SUGAR:
+	elif variables.state == variables.STATE_FIRST_SUGAR:
 		begin_first_sugar()
-	elif state == STATE_MENU:
+	elif variables.state == variables.STATE_MENU:
 		begin_menu()
-	elif state == STATE_WIN:
+	elif variables.state == variables.STATE_WIN:
 		begin_win()
-	elif state == STATE_RESUME:
+	elif variables.state == variables.STATE_RESUME:
 		begin_resume()
-	elif state == STATE_LOSS:
+	elif variables.state == variables.STATE_LOSS:
 		begin_loss()
-	elif  state == STATE_RETRY:
+	elif  variables.state == variables.STATE_RETRY:
 		begin_retry()
 
 func multiply_ants(count: int) -> void:
@@ -93,13 +90,16 @@ func _on_apple_picked_up(apple: Node2D, ant: Node2D) -> void:
 	
 func _on_sugar_picked_up(sugar: Node2D, apple: Node2D) -> void:
 	multiply_ants(1)
-	if state == STATE_FIRST_SUGAR:
-		change_state(STATE_SPLASH)
+	if variables.state == variables.STATE_FIRST_SUGAR:
+		change_state(variables.STATE_SPLASH)
 
 func begin_pre_start() -> void:
 	_initial_ant.follow_mouse = false
+	await get_tree().create_timer(1).timeout
+	fade_in(_start_text.get_node("Info"))
 	
 func begin_first_sugar() -> void:
+	_start_text.visible = false
 	_initial_ant.follow_mouse = true
 	
 func begin_splash() -> void:
@@ -109,7 +109,7 @@ func begin_splash() -> void:
 	fade_in(_menu.get_node("Splash"), 0.1)
 	await get_tree().create_timer(2).timeout
 	fade_out(_menu.get_node("Splash"))
-	change_state(STATE_MENU)
+	change_state(variables.STATE_MENU)
 
 func begin_menu() -> void:
 	fade_in(_menu.get_node("Info"))
@@ -143,6 +143,7 @@ func begin_win() -> void:
 func begin_resume() -> void:
 	fade_out(_win_menu.get_node("Info"))
 	_win_menu.visible = false
+	variables.state = variables.STATE_GAMEPLAY
 
 func begin_loss() -> void:
 	_loss_menu.visible = true
@@ -151,6 +152,7 @@ func begin_loss() -> void:
 	variables.score_updated.emit()
 
 func begin_retry() -> void:
+	_sound_background.play()
 	fade_out(_loss_menu.get_node("Info"))
 	_loss_menu.visible = false
 	var new_ant = ant_scene.instantiate()
@@ -158,7 +160,7 @@ func begin_retry() -> void:
 	new_ant.add_to_group("ants")
 	new_ant.primary = true
 	_ants_parent.call_deferred("add_child", new_ant)
-	state = STATE_GAMEPLAY
+	variables.state = variables.STATE_GAMEPLAY
 	
 
 func process_game(delta: float) -> void:
@@ -176,14 +178,14 @@ func process_game(delta: float) -> void:
 		
 		
 func any_input() -> void:
-	if state == STATE_PRE_START:
-		change_state(STATE_FIRST_SUGAR)
-	elif state == STATE_MENU:
-		change_state(STATE_GAMEPLAY)
-	elif state == STATE_WIN:
-		change_state(STATE_RESUME)
-	elif state == STATE_LOSS:
-		change_state(STATE_RETRY)
+	if variables.state == variables.STATE_PRE_START:
+		change_state(variables.STATE_FIRST_SUGAR)
+	elif variables.state == variables.STATE_MENU:
+		change_state(variables.STATE_GAMEPLAY)
+	elif variables.state == variables.STATE_WIN:
+		change_state(variables.STATE_RESUME)
+	elif variables.state == variables.STATE_LOSS:
+		change_state(variables.STATE_RETRY)
 	
 func _unhandled_key_input(event):
 	if event.is_pressed():
@@ -198,6 +200,7 @@ func _on_ant_scored():
 	correct_zoom()
 
 func _ready() -> void:
+	_start_text.get_node("Info").modulate.a = 0
 	_menu.get_node("Splash").modulate.a = 0
 	_menu.get_node("Info").modulate.a = 0
 	_win_menu.get_node("Info").modulate.a = 0
@@ -210,7 +213,7 @@ func _ready() -> void:
 	events.pumpkin_eaten.connect(_on_pumpkin_picked_up)
 	events.ant_scored.connect(_on_ant_scored)
 	variables.score_updated.connect(_on_score_updated)
-	change_state(STATE_PRE_START)
+	change_state(variables.STATE_PRE_START)
 
 func correct_zoom() -> void:
 	var ant_count = _ants_parent.get_child_count()
@@ -237,7 +240,7 @@ func generate_apple_position() -> Vector2:
 	return Vector2(random_x, random_y)
 
 func spawn_sugar() -> void:
-	if state != STATE_GAMEPLAY:
+	if variables.state != variables.STATE_GAMEPLAY:
 		return
 	if _sugars_parent.get_child_count() >= max_sugars:
 		return
@@ -258,7 +261,7 @@ func on_ant_eaten(body: Node2D) -> void:
 	var ant_count = _ants_parent.get_child_count()
 	
 	if ant_count == 1:
-		change_state(STATE_LOSS)
+		change_state(variables.STATE_LOSS)
 	
 	correct_zoom()
 	# Pick another primary ant if current one was eaten
@@ -270,7 +273,7 @@ func on_ant_eaten(body: Node2D) -> void:
 				
 func _on_score_updated() -> void:
 	if variables.score == 1000:
-		change_state(STATE_WIN)
+		change_state(variables.STATE_WIN)
 	
 func fade_in(node, duration: float = fade_duration):
 	var tween = get_tree().create_tween()
@@ -288,5 +291,9 @@ func fade_out(node, duration: float = fade_duration):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if state == STATE_GAMEPLAY:
+	if variables.state == variables.STATE_GAMEPLAY:
 		process_game(delta)
+
+
+#func _on_sound_background_finished() -> void:
+#	_sound_background.play()
