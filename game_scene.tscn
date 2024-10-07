@@ -10,10 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://cpw8y7smb486s" path="res://assets/background/wall.png" id="7_w513u"]
 [ext_resource type="PackedScene" uid="uid://denyf71crspjq" path="res://ui/menu.tscn" id="8_5q6rt"]
 [ext_resource type="PackedScene" uid="uid://dla07s4l0l71f" path="res://ant-nest/nest.tscn" id="8_o2gpr"]
-[ext_resource type="PackedScene" uid="uid://yj3u74lfuwvw" path="res://ui/winmenu.tscn" id="8_uirhy"]
-[ext_resource type="PackedScene" uid="uid://df686dcxlxo5c" path="res://ui/lossmenu.tscn" id="9_upopn"]
+[ext_resource type="PackedScene" path="res://ui/winmenu.tscn" id="8_uirhy"]
+[ext_resource type="PackedScene" path="res://ui/lossmenu.tscn" id="9_upopn"]
 [ext_resource type="Texture2D" uid="uid://scu1wgy833i4" path="res://assets/background/wall_top.png" id="10_61i78"]
-[ext_resource type="PackedScene" uid="uid://b4xkjx61815e7" path="res://ui/starttext.tscn" id="10_d7f7p"]
+[ext_resource type="PackedScene" path="res://ui/starttext.tscn" id="10_d7f7p"]
 [ext_resource type="Texture2D" uid="uid://1t72j4y4kgf8" path="res://assets/background/poison_line.png" id="10_oywlk"]
 [ext_resource type="Texture2D" uid="uid://bea82eeqaqbla" path="res://assets/background/ant_poison.png" id="11_bdcga"]
 [ext_resource type="Texture2D" uid="uid://blatfs6r3s6hy" path="res://assets/background/wall_bottom.png" id="11_s8jj1"]
@@ -260,4 +260,5 @@ stream = ExtResource("19_hpgq2")
 stream = ExtResource("20_a4uxy")
 
 [connection signal="timeout" from="Apple spawn timer" to="." method="_spawn_apple"]
+[connection signal="finished" from="SoundWin" to="." method="_on_sound_win_finished"]
 [connection signal="finished" from="SoundBackground" to="." method="_on_sound_background_finished"]

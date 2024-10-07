@@ -153,6 +153,7 @@ func begin_loss() -> void:
 
 func begin_retry() -> void:
 	_sound_background.play()
+	_sound_win.stop()
 	fade_out(_loss_menu.get_node("Info"))
 	_loss_menu.visible = false
 	var new_ant = ant_scene.instantiate()
@@ -272,7 +273,7 @@ func on_ant_eaten(body: Node2D) -> void:
 				return
 				
 func _on_score_updated() -> void:
-	if variables.score == 1000:
+	if variables.score == 10:
 		change_state(variables.STATE_WIN)
 	
 func fade_in(node, duration: float = fade_duration):
@@ -297,3 +298,8 @@ func _process(delta: float) -> void:
 
 #func _on_sound_background_finished() -> void:
 #	_sound_background.play()
+
+
+func _on_sound_win_finished() -> void:
+	if variables.state == variables.STATE_GAMEPLAY:
+		_sound_background.play()
