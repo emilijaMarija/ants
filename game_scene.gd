@@ -273,7 +273,7 @@ func on_ant_eaten(body: Node2D) -> void:
 				return
 				
 func _on_score_updated() -> void:
-	if variables.score == 10:
+	if variables.score == 1000:
 		change_state(variables.STATE_WIN)
 	
 func fade_in(node, duration: float = fade_duration):
