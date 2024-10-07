@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://dla07s4l0l71f" path="res://ant-nest/nest.tscn" id="8_o2gpr"]
 [ext_resource type="PackedScene" path="res://ui/winmenu.tscn" id="8_uirhy"]
 [ext_resource type="Texture2D" uid="uid://scu1wgy833i4" path="res://assets/background/wall_top.png" id="10_61i78"]
+[ext_resource type="Texture2D" uid="uid://1t72j4y4kgf8" path="res://assets/background/poison_line.png" id="10_oywlk"]
+[ext_resource type="Texture2D" uid="uid://bea82eeqaqbla" path="res://assets/background/ant_poison.png" id="11_bdcga"]
 [ext_resource type="Texture2D" uid="uid://blatfs6r3s6hy" path="res://assets/background/wall_bottom.png" id="11_s8jj1"]
 [ext_resource type="PackedScene" uid="uid://c5rgj5wj8mmnm" path="res://pumpkin/pumpkin.tscn" id="12_6cu0g"]
 [ext_resource type="AudioStream" uid="uid://8ubq4q475exq" path="res://assets/sounds/ant_walk.wav" id="14_o2u50"]
@@ -131,6 +133,47 @@ shape = SubResource("RectangleShape2D_yigce")
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="Walls/W1"]
 position = Vector2(2759, 1102)
 shape = SubResource("RectangleShape2D_lrhuy")
+
+[node name="OutsideSprites" type="Node" parent="Walls"]
+
+[node name="Left" type="Sprite2D" parent="Walls/OutsideSprites"]
+position = Vector2(-17, -1693.91)
+rotation = 1.5708
+scale = Vector2(0.907239, 1)
+texture = ExtResource("10_oywlk")
+
+[node name="Top" type="Sprite2D" parent="Walls/OutsideSprites"]
+texture_repeat = 2
+position = Vector2(1616, -2166)
+scale = Vector2(2.99444, 1)
+texture = ExtResource("10_oywlk")
+
+[node name="Right1" type="Sprite2D" parent="Walls/OutsideSprites"]
+position = Vector2(3248, -1232.46)
+rotation = 1.5708
+scale = Vector2(1.76025, 1)
+texture = ExtResource("10_oywlk")
+
+[node name="Right2" type="Sprite2D" parent="Walls/OutsideSprites"]
+position = Vector2(3250, 399.324)
+rotation = 1.5708
+scale = Vector2(1.29048, 1)
+texture = ExtResource("10_oywlk")
+
+[node name="Bottom" type="Sprite2D" parent="Walls/OutsideSprites"]
+position = Vector2(2237, 1106)
+scale = Vector2(1.90556, 1)
+texture = ExtResource("10_oywlk")
+
+[node name="Poison" type="Sprite2D" parent="Walls/OutsideSprites"]
+position = Vector2(1274, 1060)
+scale = Vector2(2, 2)
+texture = ExtResource("11_bdcga")
+
+[node name="Poison2" type="Sprite2D" parent="Walls/OutsideSprites"]
+position = Vector2(-45, -2207)
+scale = Vector2(2, 2)
+texture = ExtResource("11_bdcga")
 
 [node name="Nest" parent="." instance=ExtResource("8_o2gpr")]
 position = Vector2(2684, -545)
