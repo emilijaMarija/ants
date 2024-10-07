@@ -13,7 +13,10 @@ extends Node2D
 @onready var _initial_ant = $Ants/Ant
 @onready var _menu = $Menu
 @onready var _win_menu = $WinMenu
+
 @onready var _sound_ant_multiply = $SoundAntMultiply
+@onready var _sound_background: AudioStreamPlayer = $SoundBackground
+@onready var _sound_win = $SoundWin
 
 @onready var _sugar_spawn_timer = $"Sugar spawn timer"
 
@@ -96,6 +99,7 @@ func begin_first_sugar() -> void:
 	_initial_ant.follow_mouse = true
 	
 func begin_splash() -> void:
+	_sound_background.play()
 	_menu.visible = true
 	await get_tree().create_timer(0.5).timeout
 	fade_in(_menu.get_node("Splash"), 0.1)
@@ -115,10 +119,24 @@ func begin_game() -> void:
 	for i in 25:
 		spawn_sugar()
 		_spawn_apple()
-		
+
+func wait_until_playback_position(audio_stream_player: AudioStreamPlayer, target_time: float) -> void:
+	while audio_stream_player.get_playback_position() < target_time:
+		await get_tree().process_frame.emit()
+
 func begin_win() -> void:
 	_win_menu.visible = true
 	fade_in(_win_menu.get_node("Info"), 0.5)
+	
+	const track_len = 80.16
+	const bars = 32
+	const bar_len = track_len / bars
+	var mult = _sound_background.get_playback_position() / (bar_len * 6)
+	await get_tree().create_timer(ceil(mult) - mult).timeout
+	_sound_background.stop()
+	_sound_win.play()
+	print("playing")
+	
 	
 func begin_resume() -> void:
 	fade_out(_win_menu.get_node("Info"))
@@ -217,7 +235,7 @@ func on_ant_eaten(body: Node2D) -> void:
 				return
 				
 func _on_score_updated() -> void:
-	if variables.score == 1000:
+	if variables.score == 10:
 		change_state(STATE_WIN)
 	
 func fade_in(node, duration: float = fade_duration):
