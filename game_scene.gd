@@ -156,6 +156,7 @@ func begin_retry() -> void:
 	var new_ant = ant_scene.instantiate()
 	new_ant.position = Vector2(372,800)
 	new_ant.add_to_group("ants")
+	new_ant.primary = true
 	_ants_parent.call_deferred("add_child", new_ant)
 	state = STATE_GAMEPLAY
 	
