@@ -135,7 +135,6 @@ func begin_win() -> void:
 	await get_tree().create_timer(ceil(mult) - mult).timeout
 	_sound_background.stop()
 	_sound_win.play()
-	print("playing")
 	
 	
 func begin_resume() -> void:
@@ -235,7 +234,7 @@ func on_ant_eaten(body: Node2D) -> void:
 				return
 				
 func _on_score_updated() -> void:
-	if variables.score == 10:
+	if variables.score == 1000:
 		change_state(STATE_WIN)
 	
 func fade_in(node, duration: float = fade_duration):
