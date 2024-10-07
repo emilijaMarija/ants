@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://d3oi38i7201mq"]
+[gd_scene load_steps=31 format=4 uid="uid://d3oi38i7201mq"]
 
 [ext_resource type="Script" path="res://game_scene.gd" id="1_7dbf0"]
 [ext_resource type="PackedScene" uid="uid://b2526ml0jylg3" path="res://ant/ant.tscn" id="1_o4o3v"]
@@ -50,6 +50,9 @@ size = Vector2(32, 4349)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrhuy"]
 size = Vector2(3212, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8648"]
+size = Vector2(82.5669, 88.912)
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_7dbf0")
@@ -147,6 +150,11 @@ shape = SubResource("RectangleShape2D_yigce")
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="Walls/W1"]
 position = Vector2(2759, 1102)
 shape = SubResource("RectangleShape2D_lrhuy")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="Walls/W1"]
+position = Vector2(1279.72, 1074.9)
+rotation = 2.10487
+shape = SubResource("RectangleShape2D_y8648")
 
 [node name="OutsideSprites" type="Node" parent="Walls"]
 
