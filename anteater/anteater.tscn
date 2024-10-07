@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://7d6bwmfcr17c"]
+[gd_scene load_steps=21 format=3 uid="uid://7d6bwmfcr17c"]
 
 [ext_resource type="Script" path="res://anteater/anteater.gd" id="1_5buyl"]
 [ext_resource type="Texture2D" uid="uid://ux4vrivp6ygd" path="res://assets/anteater_walk/anteater_walking1.png" id="1_o3uy1"]
@@ -73,10 +73,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y8a68"]
-radius = 20.67
-height = 328.67
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ck0db"]
 radius = 328.12
 height = 656.24
@@ -92,10 +88,6 @@ script = ExtResource("1_5buyl")
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_2je6i")
 animation = &"suck"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = -0.000188623
-shape = SubResource("CapsuleShape2D_y8a68")
 
 [node name="Sniff area" type="Area2D" parent="."]
 

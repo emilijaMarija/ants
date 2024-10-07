@@ -21,7 +21,7 @@ extends Node2D
 @onready var _sugar_spawn_timer = $"Sugar spawn timer"
 
 const max_sugars = 25
-const max_apples = 25
+const max_apples = 50
 
 enum {STATE_PRE_START, STATE_FIRST_SUGAR, STATE_SPLASH, STATE_MENU, 
 STATE_GAMEPLAY, STATE_WIN, STATE_RESUME}
@@ -201,8 +201,14 @@ func generate_sugar_position() -> Vector2:
 	
 
 func generate_apple_position() -> Vector2:
-	var random_x = randf_range(1200, 3200)
-	var random_y = randf_range(-1000, 1000)
+	var random_y = randf_range(-2100, 1100)
+	var random_x
+	
+	if random_y < -1200:
+		random_x = randf_range(0, 3250)
+	else:
+		random_x = randf_range(1200, 3250)
+	
 	
 	return Vector2(random_x, random_y)
 

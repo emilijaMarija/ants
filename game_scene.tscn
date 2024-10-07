@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://d3oi38i7201mq"]
+[gd_scene load_steps=29 format=4 uid="uid://d3oi38i7201mq"]
 
 [ext_resource type="Script" path="res://game_scene.gd" id="1_7dbf0"]
 [ext_resource type="PackedScene" uid="uid://b2526ml0jylg3" path="res://ant/ant.tscn" id="1_o4o3v"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cpw8y7smb486s" path="res://assets/background/wall.png" id="7_w513u"]
 [ext_resource type="PackedScene" uid="uid://denyf71crspjq" path="res://ui/menu.tscn" id="8_5q6rt"]
 [ext_resource type="PackedScene" uid="uid://dla07s4l0l71f" path="res://ant-nest/nest.tscn" id="8_o2gpr"]
-[ext_resource type="PackedScene" path="res://ui/winmenu.tscn" id="8_uirhy"]
+[ext_resource type="PackedScene" uid="uid://yj3u74lfuwvw" path="res://ui/winmenu.tscn" id="8_uirhy"]
 [ext_resource type="Texture2D" uid="uid://scu1wgy833i4" path="res://assets/background/wall_top.png" id="10_61i78"]
 [ext_resource type="Texture2D" uid="uid://1t72j4y4kgf8" path="res://assets/background/poison_line.png" id="10_oywlk"]
 [ext_resource type="Texture2D" uid="uid://bea82eeqaqbla" path="res://assets/background/ant_poison.png" id="11_bdcga"]
@@ -22,9 +22,9 @@
 
 [sub_resource type="Curve2D" id="Curve2D_17l14"]
 _data = {
-"points": PackedVector2Array(-166.777, 169.051, 166.777, -169.051, -400, 53, -109.163, 78.0818, 109.163, -78.0818, -240, -266, 0, 0, 0, 0, 9, -331, -108.405, -66.7106, 108.405, 66.7106, 224, -295, 76.5656, -109.921, -76.5656, 109.921, 344, 147, 125.841, -18.9519, -125.841, 18.9519, 170, 476, 81.8721, 109.921, -81.8721, -109.921, -121, 403, 104.614, 56.0976, -104.614, -56.0976, -393, 452, 19.71, -47.7588, -19.71, 47.7588, -475, 287, 0, 0, 0, 0, -356, 92)
+"points": PackedVector2Array(-3.4576, 259.938, 3.4576, -259.938, -509.592, -187.026, -109.163, 78.0818, 109.163, -78.0818, -299.53, -441.47, 0, 0, 0, 0, -272.65, -469.013, 0, 0, 0, 0, -26.7486, -560.823, 0, 0, 0, 0, 108.647, -531.969, -39.6145, -82.6627, 39.6145, 82.6627, 251.011, -354.907, 0, 0, 0, 0, 296.806, -218.504, 56.8546, -85.8082, -56.8546, 85.8082, 248.024, -108.333, 125.841, 3.63086, -125.841, -3.63086, 64.8423, 4.46216, 81.8721, -70.7411, -81.8721, 70.7411, -151.308, 152.01, 66.8722, 56.0976, -66.8722, -56.0976, -388.135, 367.766, 13.9036, 147.958, -13.9036, -147.958, -475.743, 148.735, 0, 0, 0, 0, -509.592, -188.338)
 }
-point_count = 10
+point_count = 13
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2tkth"]
 size = Vector2(1085, 129)
@@ -82,8 +82,18 @@ wait_time = 3.0
 autostart = true
 
 [node name="Path2D" type="Path2D" parent="."]
-position = Vector2(2700, -600)
-scale = Vector2(1.025, 0.894679)
+position = Vector2(2601.74, -600)
+scale = Vector2(0.824119, 0.894679)
+curve = SubResource("Curve2D_17l14")
+
+[node name="Path2D2" type="Path2D" parent="."]
+position = Vector2(2355.44, 600)
+scale = Vector2(1.54651, 0.894679)
+curve = SubResource("Curve2D_17l14")
+
+[node name="Path2D3" type="Path2D" parent="."]
+position = Vector2(679.868, -1700)
+scale = Vector2(1.00447, 0.762447)
 curve = SubResource("Curve2D_17l14")
 
 [node name="Scoreboard" parent="." instance=ExtResource("6_inxoj")]
@@ -178,6 +188,18 @@ texture = ExtResource("11_bdcga")
 [node name="Nest" parent="." instance=ExtResource("8_o2gpr")]
 position = Vector2(2684, -545)
 
+[node name="Nest2" parent="." instance=ExtResource("8_o2gpr")]
+position = Vector2(2937, 644)
+
+[node name="Nest3" parent="." instance=ExtResource("8_o2gpr")]
+position = Vector2(2450, 909)
+
+[node name="Nest4" parent="." instance=ExtResource("8_o2gpr")]
+position = Vector2(309, -1869)
+
+[node name="Nest5" parent="." instance=ExtResource("8_o2gpr")]
+position = Vector2(2952, -1976)
+
 [node name="Apple spawn timer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
@@ -203,6 +225,15 @@ scale = Vector2(1.5, 1.5)
 [node name="Anteater" parent="." instance=ExtResource("5_lh8r2")]
 position = Vector2(2323, -539)
 path = NodePath("../Path2D")
+
+[node name="Anteater2" parent="." instance=ExtResource("5_lh8r2")]
+position = Vector2(1771, 668)
+path = NodePath("../Path2D2")
+
+[node name="Anteater3" parent="." instance=ExtResource("5_lh8r2")]
+position = Vector2(708, -1868)
+rotation = 2.29336
+path = NodePath("../Path2D3")
 
 [node name="SoundAntMultiply" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_o2u50")
